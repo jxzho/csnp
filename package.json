@@ -1,0 +1,16 @@
+{
+  "name": "code-snippets",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "exec": "node index.js"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "comment-json": "^4.2.3",
+    "gray-matter": "^4.0.3"
+  }
+}
