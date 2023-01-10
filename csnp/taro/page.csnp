@@ -1,0 +1,16 @@
+---
+name: Init Taro Page
+prefix: -taropage
+description: init taro page
+scope: javascript,typescript,typescriptreact,javascriptreact
+---
+import React from 'react'
+import { View } from '@tarojs/components'
+
+const Page$1 = () => {
+  return (
+    <View>Page$1</View>
+  )
+}
+
+export default Page$1
