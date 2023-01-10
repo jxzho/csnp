@@ -4,50 +4,67 @@ const path = require('path')
 const matter = require('gray-matter')
 const JSON = require('comment-json')
 
+const { log } = require('./utils')
+
 const DIR = 'csnp'
-const targetFilePath = path.join(os.homedir(), '/Library/Application Support/Code/User/snippets', '1.code-snippets')
+
+const getTargetPath = (name) => path.join(os.homedir(), '/Library/Application Support/Code/User/snippets', `${name}.code-snippets`)
 
 try {
-  let data = {}
+  const paths = fs.readdirSync(DIR, 'utf-8')
+  paths.forEach((pathname) => {
+    const fullpath = path.join(DIR, pathname)
 
-  if (fs.existsSync(targetFilePath)) {
-    data = fs.readFileSync(targetFilePath, 'utf-8') || {}
-  }
+    if (fs.statSync(fullpath).isDirectory()) {
 
-  const parsed = JSON.parse(data)
+      let snippetsOrigin
+      const targetFilePath = getTargetPath(pathname)
+      if (fs.existsSync(targetFilePath)) {
+        snippetsOrigin = fs.readFileSync(targetFilePath, 'utf-8')
+      }
 
-  const map = new Map(Object.entries(JSON.parse(data)))
+      const parsed = snippetsOrigin ? JSON.parse(snippetsOrigin) : {}
+      const map = new Map(Object.entries(parsed))
 
-  const dirCsnp = fs.readdirSync('csnp', 'utf-8')
-  dirCsnp.forEach((filename) => {
-    const str = fs.readFileSync(path.resolve(DIR, filename), 'utf8')
-    
-    const { content: body, data = {} } = matter(str)
-    const { name, prefix, description } = data
+      fs.readdirSync(fullpath, 'utf-8').forEach(filename => {
+        const str = fs.readFileSync(path.join(fullpath, filename), 'utf8')
+        const { content: body, data: dataMatter } = matter(str)
+        const { name, prefix, description } = dataMatter || {}
 
-    if (!map.has(name)) {
-      map.set(name, {
-        prefix,
-        body: body.split('\n'),
-        description
+        let _valueMap
+        if (map.has(name)) {
+          _valueMap = map.get(name)
+          map.delete(name)
+        }
+        map.set(name, {
+          ..._valueMap,
+          prefix,
+          body: body.split('\n'),
+          description
+        })
       })
+
+      const objFromMap = Object.fromEntries(map)
+
+      const _map = snippetsOrigin ? JSON.assign(parsed, objFromMap, Object.keys(objFromMap)) : objFromMap
+
+      const strs = JSON.stringify(_map, null, 2)
+
+      log.info(targetFilePath, strs)
+
+      fs.writeFile(targetFilePath, strs, (err) => {
+        if (!err) {
+          log.success('success')
+        } else {
+          log.error('set snippets error', err)
+        }
+      })
+
     }
-  })
 
-  const objFromMap = Object.fromEntries(map)
-
-  const _map = JSON.assign({}, parsed, Object.keys(objFromMap))
-
-  const strs = JSON.stringify(_map, null, 2)
-
-  fs.writeFile(targetFilePath, strs, (err) => {
-    if (!err) {
-      console.log('=>> success!')
-    } else {
-      console.log('=>> writeFile', err)
-    }
   })
 
 } catch (error) {
-  console.log('exec error', error)
+  log.error('[code execute error]', error)
+  console.log('=>> error', error)
 }

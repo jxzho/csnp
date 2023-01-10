@@ -1,5 +1,5 @@
 ---
-name: console =>>
+name: Console With =>>
 prefix: -clg
 description: console.log('=>> ?', ?)
 ---

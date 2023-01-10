@@ -1,0 +1,14 @@
+---
+name: Init Taro Component
+prefix: -tarocomponent
+description: init taro component
+scope: javascript,typescript,typescriptreact,javascriptreact
+---
+import React from 'react'
+import { View } from '@tarojs/components'
+
+export const $1 = () => {
+  return (
+    <View>$1</View>
+  )
+}
