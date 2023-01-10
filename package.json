@@ -1,5 +1,5 @@
 {
-  "name": "code-snippets",
+  "name": "csnp",
   "version": "1.0.0",
   "description": "",
   "main": "index.js",
@@ -12,5 +12,11 @@
   "dependencies": {
     "comment-json": "^4.2.3",
     "gray-matter": "^4.0.3"
+  },
+  "bin": {
+    "start": "./bin/start.js"
+  },
+  "devDependencies": {
+    "kolorist": "^1.6.0"
   }
 }
