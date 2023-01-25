@@ -4,10 +4,13 @@ prefix: -tarocomponent
 description: init taro component
 scope: javascript,typescript,typescriptreact,javascriptreact
 ---
-import React from 'react'
+import React, { PropsWithChildren } from 'react'
 import { View } from '@tarojs/components'
+import './index.scss'
 
-export const $1 = () => {
+export type Props$1 = {}
+
+export const $1: React.FC<PropsWithChildren<Props$1>> = () => {
   return (
     <View>$1</View>
   )

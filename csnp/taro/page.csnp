@@ -6,6 +6,7 @@ scope: javascript,typescript,typescriptreact,javascriptreact
 ---
 import React from 'react'
 import { View } from '@tarojs/components'
+import './index.scss'
 
 const Page$1 = () => {
   return (
