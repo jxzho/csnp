@@ -1,14 +1,12 @@
 const fs = require('fs')
-const os = require('os')
 const path = require('path')
 const matter = require('gray-matter')
 const JSON = require('comment-json')
 
 const { log } = require('./utils')
+const { targetPath } = require('./target-path')
 
 const DIR = 'csnp'
-
-const getTargetPath = (name) => path.join(os.homedir(), '/Library/Application Support/Code/User/snippets', `${name}.code-snippets`)
 
 try {
   const paths = fs.readdirSync(DIR, 'utf-8')
@@ -18,7 +16,7 @@ try {
     if (fs.statSync(fullpath).isDirectory()) {
 
       let snippetsOrigin
-      const targetFilePath = getTargetPath(pathname)
+      const targetFilePath = targetPath(pathname)
       if (fs.existsSync(targetFilePath)) {
         snippetsOrigin = fs.readFileSync(targetFilePath, 'utf-8')
       }
@@ -50,7 +48,7 @@ try {
 
       const strs = JSON.stringify(_map, null, 2)
 
-      log.info(targetFilePath, strs)
+      // log.info(targetFilePath, strs)
 
       fs.writeFile(targetFilePath, strs, (err) => {
         if (!err) {
