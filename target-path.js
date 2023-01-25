@@ -16,7 +16,7 @@ const map = {
   },
   Win: {
     in: Win,
-    path: `${process.env.APPDATA}\Code\User\snippets`
+    path: `${process.env.APPDATA}\\Code\\User\\snippets`
   }
 }
 
