@@ -4,7 +4,8 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "exec": "node index.js"
+    "exec": "node index.js",
+    "prompts": "node prompts.js"
   },
   "keywords": [],
   "author": "",
@@ -12,5 +13,9 @@
   "dependencies": {
     "comment-json": "^4.2.3",
     "gray-matter": "^4.0.3"
+  },
+  "devDependencies": {
+    "kolorist": "^1.6.0",
+    "prompts": "^2.4.2"
   }
 }
