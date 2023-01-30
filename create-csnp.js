@@ -23,7 +23,7 @@ const createCsnp = (snpPath, data = {
     })
   }
 
-  return Promise.resolve(true)
+  return Promise.resolve(false)
 }
 
 module.exports = {
