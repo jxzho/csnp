@@ -25,50 +25,6 @@ const exec = async () => {
     if (pathSnp) {
       const snippets = fs.readdirSync('csnp', 'utf-8')
 
-      // const { snippetMode: initMode } = await prompts({
-      //   type: 'select',
-      //   name: 'snippetMode',
-      //   message: 'Select init mode',
-      //   choices: [
-      //     {
-      //       title: 'create',
-      //       value: 'create',
-      //       description: 'new snippet in dir-csnp',
-      //     },
-      //     {
-      //       title: 'select',
-      //       value: 'select',
-      //       description: [
-      //         'use snippet type in dir-csnp',
-      //         snippets,
-      //       ].join(' - '),
-      //       disabled: snippets.length === 0,
-      //     }
-      //   ],
-      //   initial: 0,
-      //   warn: 'no snippet types currently!',
-      //   hint: ' '
-      // })
-
-      // const selectSnippetType = () => {
-      //   // snippets = snippets.filter(snp => {
-      //   //   return (/.+\.((code-snippets)|(json))$/.test(snp))
-      //   // })
-        
-      //   return {
-      //     type: 'select',
-      //     name: 'type',
-      //     message: 'Select snippet type',
-      //     choices: snippets.map(snp => {
-      //       // const prefixName = path.parse(snp).name
-      //       return {
-      //         value: snp,
-      //         title: snp
-      //       }
-      //     })
-      //   }
-      // }
-
       const { type: snippetType } = await prompts({
         type: 'text',
         name: 'type',
