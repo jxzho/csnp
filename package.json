@@ -4,8 +4,8 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "exec": "node index.js",
-    "prompts": "node prompts.js"
+    "init": "node prompts.js",
+    "csnp": "node index.js"
   },
   "keywords": [],
   "author": "",
