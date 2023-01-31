@@ -1,90 +1,145 @@
 const fs = require('fs')
 const os = require('os')
+const path = require('path')
 
 const prompts = require('prompts')
 const { cyan } = require('kolorist')
 
 const { currentOS } = require('./target-path')
-const { createCsnp } = require('./create-csnp')
+const { createCsnpLocal } = require('./create-csnp')
 const { log } = require('./utils')
+const { getSnippetFromVSC } = require('./snippet-vsc')
+
+const checkFileCsnpLocal = (path) => {
+  if (fs.existsSync(path)) {
+    return `\`${path}\` already exists, pls re-input filename`
+  } else {
+    return true
+  }
+}
 
 const exec = async () => {
   try {
     const pathSnp = currentOS().pathSnippetsStored
 
     if (pathSnp) {
-      const mode = await prompts({
-        type: 'confirm',
-        name: 'snippetCreate',
-        message: 'create new snippets',
-        initial: true
+      const snippets = fs.readdirSync('csnp', 'utf-8')
+
+      // const { snippetMode: initMode } = await prompts({
+      //   type: 'select',
+      //   name: 'snippetMode',
+      //   message: 'Select init mode',
+      //   choices: [
+      //     {
+      //       title: 'create',
+      //       value: 'create',
+      //       description: 'new snippet in dir-csnp',
+      //     },
+      //     {
+      //       title: 'select',
+      //       value: 'select',
+      //       description: [
+      //         'use snippet type in dir-csnp',
+      //         snippets,
+      //       ].join(' - '),
+      //       disabled: snippets.length === 0,
+      //     }
+      //   ],
+      //   initial: 0,
+      //   warn: 'no snippet types currently!',
+      //   hint: ' '
+      // })
+
+      // const selectSnippetType = () => {
+      //   // snippets = snippets.filter(snp => {
+      //   //   return (/.+\.((code-snippets)|(json))$/.test(snp))
+      //   // })
+        
+      //   return {
+      //     type: 'select',
+      //     name: 'type',
+      //     message: 'Select snippet type',
+      //     choices: snippets.map(snp => {
+      //       // const prefixName = path.parse(snp).name
+      //       return {
+      //         value: snp,
+      //         title: snp
+      //       }
+      //     })
+      //   }
+      // }
+
+      const { type: snippetType } = await prompts({
+        type: 'text',
+        name: 'type',
+        message: 'Input snippet type',
+        initial: snippets.join(', ')
+        // initial: os.userInfo().username,
+        // validate: (type) => {
+        //   return snippets.includes(type)
+        //     ? `\`${type}\` already exists, pls re-input type`
+        //     : true
+        // }
       })
 
-      if (mode.snippetCreate) {
-        const res = await prompts([{
-          type: 'text',
-          name: 'type',
-          message: 'use snippet type',
-          initial: os.userInfo().username
-        }, {
-          type: 'text',
-          name: 'name',
-          message: 'input snippet name',
-          initial: 'my-snippets'
-        }, {
-          type: 'text',
-          name: 'prefix',
-          message: 'prefix for snippet?',
-        }])
-
-        const snpPath = `./csnp/${res.type}/${res.name}.csnp`
-
-        const created = await createCsnp(snpPath, {
-          name: res.name,
-          prefix: res.prefix
-        })
-
-        if (created) {
-          printLoveTips(snpPath)
-        } else {
-          log.error('create failed!')
+      const res = await prompts([{
+        type: 'text',
+        name: 'name',
+        message: 'Name for snippet?',
+        initial: 'My Snippet'
+      }, {
+        type: 'text',
+        name: 'prefix',
+        message: 'Prefix for snippet?',
+      }, {
+        type: 'text',
+        name: 'filename',
+        message: 'Input snippet file name',
+        initial: 'my-snippets',
+        validate: (filename) => {
+          const snpPathLocal = `./csnp/${snippetType}/${filename}.csnp`
+          return checkFileCsnpLocal(snpPathLocal)
         }
+      }])
 
+      const snpPathLocal = `./csnp/${snippetType}/${res.filename}.csnp`
+
+      const { snippetMap } = getSnippetFromVSC(snippetType)
+      const snippetExist = snippetMap.has(res.name) && snippetMap.get(res.name)
+      
+      const snippetBody = snippetExist
+        ? (snippetExist.body || []).join('\n')
+        : undefined
+
+      const { flag, message } = await createCsnpLocal(snpPathLocal, {
+        name: res.name,
+        prefix: res.prefix,
+        description: 'my snippet description',
+      }, snippetBody)
+
+      if (flag) {
+        printLoveTips(snpPathLocal)
       } else {
-        let snippets = fs.readdirSync(pathSnp, 'utf-8')
-        snippets = snippets.filter(snp => {
-          return (/.+\.((code-snippets)|(json))$/.test(snp))
-        })
-        if (snippets.length) {
-          const res = await prompts({
-            type: 'select',
-            name: 'snippetUser',
-            message: 'select user snippets',
-            choices: snippets.map(snp => ({
-              value: snp,
-              title: /(.+)\..+$/.exec(snp)[1]
-            }))
-          })
-          console.log('=>> res', res.snippetUser)
-        }
+        log.error('\n' + message + '\n')
       }
     }
   } catch (error) {
+    log.error(error)
     throw Error(error)
   }
 
   // console.log(lightGreen(JSON.stringify(res, null, 2)))
 }
 
-const printLoveTips = (snpPath) => {
+const printLoveTips = (pathLocal) => {
   console.log(`
-just use command 👇🏼
+✨ just use command 👇🏼
 
-${cyan(`\`vim ${snpPath}\``)}
+${cyan(`\`vim ${pathLocal}\``)}
 
-${cyan(`\`yarn run exec\``)}
+${cyan(`\`yarn run csnp\``)}
 
-to generate your snippets! ❤️
+✨ to generate your snippets! ❤️
   `)
 }
 
