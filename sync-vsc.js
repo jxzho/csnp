@@ -55,8 +55,9 @@ const syncCsnpFromVSC = () => {
   })
 }
 
+syncCsnpFromVSC()
+
 module.exports = {
   getSnippetVSC,
   getSnippetBody,
-  syncCsnpFromVSC,
 }

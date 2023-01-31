@@ -5,7 +5,8 @@
   "main": "index.js",
   "scripts": {
     "init": "node prompts.js",
-    "csnp": "node index.js"
+    "csnp": "node index.js",
+    "sync": "node sync-vsc.js"
   },
   "keywords": [],
   "author": "",
