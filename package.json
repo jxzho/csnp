@@ -6,7 +6,8 @@
   "scripts": {
     "init": "node prompts.js",
     "csnp": "node index.js",
-    "sync": "node sync-vsc.js"
+    "sync": "node sync-vsc.js",
+    "test": "jest"
   },
   "keywords": [],
   "author": "",
@@ -16,6 +17,7 @@
     "gray-matter": "^4.0.3"
   },
   "devDependencies": {
+    "jest": "^29.4.1",
     "kolorist": "^1.6.0",
     "prompts": "^2.4.2"
   },
