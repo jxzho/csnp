@@ -10,14 +10,14 @@ const { getSnippetFromVSC } = require('./snippet-vsc')
 const DIR = 'csnp'
 
 try {
-  const paths = fs.readdirSync(DIR, 'utf-8')
+  const paths = fs.readdirSync(path.join(__dirname, DIR), 'utf-8')
 
-  const execFiles = process.argv.slice(2)
+  // const execFiles = process.argv.slice(2)
 
-  const execModeDefault = execFiles.length > 0
+  // const execModeDefault = execFiles.length > 0
 
   paths.forEach((pathname) => {
-    const snippetTypePathLocal = path.join(DIR, pathname)
+    const snippetTypePathLocal = path.join(__dirname, DIR, pathname)
 
     if (fs.statSync(snippetTypePathLocal).isDirectory()) {
 
@@ -30,11 +30,11 @@ try {
 
       fs.readdirSync(snippetTypePathLocal, 'utf-8').forEach(filename => {
         const pathCsnpLocal = path.join(snippetTypePathLocal, filename)
-
+        
         const str = fs.readFileSync(pathCsnpLocal, 'utf8')
 
         const { content: body, data: dataMatter } = matter(str)
-        const { name, prefix, description } = dataMatter || {}
+        const { name, prefix, description, scope } = dataMatter || {}
 
         let _valueMap
         if (snippetMap.has(name)) {
@@ -45,7 +45,8 @@ try {
           ..._valueMap,
           prefix,
           body: body.split('\n'),
-          description
+          description,
+          scope
         })
       })
 
@@ -54,8 +55,6 @@ try {
       const _map = snippetsOrigin ? JSON.assign(snippetParsed, snippetNew, Object.keys(snippetNew)) : snippetNew
 
       const strs = JSON.stringify(_map, null, 2)
-
-      // log.info(targetFilePath, strs)
 
       fs.writeFile(targetFilePath, strs, (err) => {
         if (err) {

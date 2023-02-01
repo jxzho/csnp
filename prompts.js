@@ -1,6 +1,6 @@
 const fs = require('fs')
 const os = require('os')
-const path = require('path')
+const { join } = require('path')
 
 const prompts = require('prompts')
 const { cyan } = require('kolorist')
@@ -23,13 +23,18 @@ const exec = async () => {
     const pathSnp = currentOS().pathSnippetsStored
 
     if (pathSnp) {
-      const snippets = fs.readdirSync('csnp', 'utf-8')
+      // const snippets = fs.readdirSync(
+      //   join(__dirname, 'csnp'),
+      //   'utf-8'
+      // )
 
       const { type: snippetType } = await prompts({
         type: 'text',
         name: 'type',
         message: 'Input snippet type',
-        initial: snippets.join(', ')
+        validate: (type) => {
+          return !type ? `please input type, exp: vue` : true
+        }
         // initial: os.userInfo().username,
         // validate: (type) => {
         //   return snippets.includes(type)
@@ -42,23 +47,29 @@ const exec = async () => {
         type: 'text',
         name: 'name',
         message: 'Name for snippet?',
-        initial: 'My Snippet'
+        initial: 'My Snippet',
+        validate: (name) => {
+          return !name ? 'please input name!' : true
+        }
       }, {
         type: 'text',
         name: 'prefix',
         message: 'Prefix for snippet?',
+        validate: (prefix) => {
+          return !prefix ? 'please input prefix!' : true
+        }
       }, {
         type: 'text',
         name: 'filename',
         message: 'Input snippet file name',
         initial: 'my-snippets',
         validate: (filename) => {
-          const snpPathLocal = `./csnp/${snippetType}/${filename}.csnp`
+          const snpPathLocal = join(__dirname, `csnp/${snippetType}/${filename}.csnp`)
           return checkFileCsnpLocal(snpPathLocal)
         }
       }])
 
-      const snpPathLocal = `./csnp/${snippetType}/${res.filename}.csnp`
+      const snpPathLocal = join(__dirname, `csnp/${snippetType}/${res.filename}.csnp`)
 
       const { snippetMap } = getSnippetFromVSC(snippetType)
       const snippetExist = snippetMap.has(res.name) && snippetMap.get(res.name)
@@ -87,16 +98,15 @@ const exec = async () => {
   // console.log(lightGreen(JSON.stringify(res, null, 2)))
 }
 
-const printLoveTips = (pathLocal) => {
-  console.log(`
-✨ just use command 👇🏼
+const printLoveTips = (pathLocal) => 
+console.log(`
+  ✨ just use command 👇🏼
 
-${cyan(`\`vim ${pathLocal}\``)}
+  ${cyan(`\`vim ${pathLocal}\``)}
 
-${cyan(`\`yarn run csnp\``)}
+  ${cyan(`\`yarn run csnp\``)}
 
-✨ to generate your snippets! ❤️
-  `)
-}
+  ✨ to generate your snippets! ❤️
+`)
 
 exec()
