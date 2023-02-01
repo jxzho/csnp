@@ -15,7 +15,7 @@ const createCsnpLocal = (
   },
   body = 'code snippets'
 ) => {
-  const strs = matter.stringify(body, data)
+  const contents = matter.stringify(body, data)
 
   const makeCsnp = (val) => fs.writeFileSync(snpPath, val, 'utf-8')
 
@@ -28,9 +28,10 @@ const createCsnpLocal = (
 
   const { dir } = path.parse(snpPath)
   return mkdir(dir, { recursive: true }).then(() => {
-    makeCsnp(strs)
+    makeCsnp(contents)
     return {
-      flag: true
+      flag: true,
+      contents
     }
   })
 }
