@@ -64,12 +64,12 @@ const exec = async () => {
         message: 'Input snippet file name',
         initial: 'my-snippets',
         validate: (filename) => {
-          const snpPathLocal = join(__dirname, `csnp/${snippetType}/${filename}.csnp`)
-          return checkFileCsnpLocal(snpPathLocal)
+          const _path = join(__dirname, `csnp/${snippetType}/${filename}.csnp`)
+          return checkFileCsnpLocal(_path)
         }
       }])
 
-      const snpPathLocal = join(__dirname, `csnp/${snippetType}/${res.filename}.csnp`)
+      const csnpPath = join(__dirname, `csnp/${snippetType}/${res.filename}.csnp`)
 
       const { snippetMap } = getSnippetFromVSC(snippetType)
       const snippetExist = snippetMap.has(res.name) && snippetMap.get(res.name)
@@ -78,14 +78,18 @@ const exec = async () => {
         ? (snippetExist.body || []).join('\n')
         : undefined
 
-      const { flag, message } = await createCsnpLocal(snpPathLocal, {
-        name: res.name,
-        prefix: res.prefix,
-        description: 'my snippet description',
-      }, snippetBody)
+      const { flag, message } = await createCsnpLocal(
+        csnpPath,
+        {
+          name: res.name,
+          prefix: res.prefix,
+          description: 'my snippet description',
+        },
+        snippetBody
+      )
 
       if (flag) {
-        printLoveTips(snpPathLocal)
+        printLoveTips(csnpPath)
       } else {
         log.error('\n' + message + '\n')
       }
