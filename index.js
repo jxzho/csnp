@@ -4,34 +4,33 @@ const JSON = require('comment-json')
 const matter = require('gray-matter')
 
 const { log } = require('./utils')
-
 const { getSnippetFromVSC } = require('./snippet-vsc')
 
-const DIR = 'csnp'
+const DIR_CSNP = 'csnp'
+
+const csnpTypes = () => fs.readdirSync(path.join(__dirname, DIR_CSNP), 'utf-8')
+
+const isDir = val => fs.statSync(val).isDirectory()
 
 try {
-  const paths = fs.readdirSync(path.join(__dirname, DIR), 'utf-8')
-
   // const execFiles = process.argv.slice(2)
-
   // const execModeDefault = execFiles.length > 0
 
-  paths.forEach((pathname) => {
-    const snippetTypePathLocal = path.join(__dirname, DIR, pathname)
+  csnpTypes().forEach((type) => {
+    const typePath = path.join(__dirname, DIR_CSNP, type)
 
-    if (fs.statSync(snippetTypePathLocal).isDirectory()) {
-
+    if (isDir(typePath)) {
       const {
         snippetMap,
         snippetsOrigin,
         snippetParsed,
         targetFilePath
-      } = getSnippetFromVSC(pathname)
+      } = getSnippetFromVSC(type)
 
-      fs.readdirSync(snippetTypePathLocal, 'utf-8').forEach(filename => {
-        const pathCsnpLocal = path.join(snippetTypePathLocal, filename)
+      fs.readdirSync(typePath, 'utf-8').forEach(csnp => {
+        const csnpPath = path.join(typePath, csnp)
         
-        const str = fs.readFileSync(pathCsnpLocal, 'utf8')
+        const str = fs.readFileSync(csnpPath, 'utf8')
 
         const { content: body, data: dataMatter } = matter(str)
         const { name, prefix, description, scope } = dataMatter || {}
