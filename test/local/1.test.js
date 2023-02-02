@@ -5,8 +5,8 @@ const { log } = require('../../utils')
 const fs = require('fs')
 const path = require('path')
 
-describe('start', () => {
-  test('getSnippetFromVSC: vue', async () => {
+describe('create local csnp by', () => {
+  test('`createCsnpLocal`', async () => {
 
     const csnpPathWaitToCreated = path.join(__dirname, 'csnp/2.csnp')
 
