@@ -1,5 +1,5 @@
 const fs = require('fs')
-const os = require('os')
+// const os = require('os')
 const { join } = require('path')
 
 const prompts = require('prompts')
@@ -32,9 +32,7 @@ const exec = async () => {
         type: 'text',
         name: 'type',
         message: 'Input snippet type',
-        validate: (type) => {
-          return !type ? `please input type, exp: vue` : true
-        }
+        validate: type => !type ? `please input type, exp: vue` : true
         // initial: os.userInfo().username,
         // validate: (type) => {
         //   return snippets.includes(type)
@@ -98,7 +96,6 @@ const exec = async () => {
     log.error(error)
     throw Error(error)
   }
-
   // console.log(lightGreen(JSON.stringify(res, null, 2)))
 }
 
