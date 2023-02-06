@@ -1,11 +1,14 @@
 const fs = require('fs')
+const path = require('path')
 const JSON = require('comment-json')
 
 const { targetPath } = require('./target-path')
 
-const getSnippetFromVSC = (snippetType) => {
+const getSnippetFromVSC = (snippetType, scope) => {
   let snippetsOrigin
-  const targetFilePath = targetPath(snippetType)
+  const targetFilePath = (scope === 'global')
+    ? targetPath(snippetType)
+    : path.join(__dirname, '.vscode', `${snippetType}.code-snippets`)
 
   if (fs.existsSync(targetFilePath)) {
     snippetsOrigin = fs.readFileSync(targetFilePath, 'utf-8')
