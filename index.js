@@ -17,7 +17,6 @@ const putCsnpIntoVSC = async (scope) => {
   try {
     // const execFiles = process.argv.slice(2)
     // const execModeDefault = execFiles.length > 0
-
     csnpTypes().forEach((type) => {
       const typePath = path.join(__dirname, DIR_CSNP, type)
 
