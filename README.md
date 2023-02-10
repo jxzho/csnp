@@ -1,11 +1,12 @@
 # csnp
-code snippets tools for VS Code
+a code snippets tool for VS Code
 
 ## Usage
-```
+```zsh
 $ yarn
 
 $ yarn run init
+$ yarn run csnp
 ```
 
 ## Demo
