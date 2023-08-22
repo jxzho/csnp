@@ -62,12 +62,12 @@ const exec = async () => {
         message: 'Input snippet file name',
         initial: 'my-snippets',
         validate: (filename) => {
-          const _path = join(__dirname, `csnp/${snippetType}/${filename}.csnp`)
+          const _path = join(__dirname, '..', `csnp/${snippetType}/${filename}.csnp`)
           return checkFileCsnpLocal(_path)
         }
       }])
 
-      const csnpPath = join(__dirname, `csnp/${snippetType}/${res.filename}.csnp`)
+      const csnpPath = join(__dirname, '..', `csnp/${snippetType}/${res.filename}.csnp`)
 
       const { snippetMap } = getSnippetFromVSC(snippetType)
       const snippetExist = snippetMap.has(res.name) && snippetMap.get(res.name)
