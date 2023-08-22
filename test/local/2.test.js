@@ -1,6 +1,7 @@
 const fs = require('fs')
 const path = require('path')
-const { writeContents, log } = require('../../utils')
+const { writeContents } = require('../../utils/write-contents')
+const { log } = require('../../utils/log')
 
 describe('write contents by path', () => {
   test('`writeContents`', async () => {
