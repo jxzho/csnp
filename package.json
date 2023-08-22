@@ -10,7 +10,10 @@
     "push": "node ./scripts/push-cnsp.js",
     "test": "jest"
   },
-  "keywords": [],
+  "keywords": [
+    "csnp",
+    "code snippets"
+  ],
   "author": "",
   "license": "ISC",
   "dependencies": {
