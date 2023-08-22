@@ -1,8 +1,8 @@
 const fs = require('fs')
 const path = require('path')
-const { currentOS } = require('./target-path')
-const { getSnippetFromVSC } = require('./snippet-vsc')
-const { createCsnpLocal } = require('./create-csnp')
+const { currentOS } = require('../utils/target-path')
+const { getSnippetFromVSC } = require('../utils/snippet-from-vsc')
+const { createCsnpLocal } = require('../utils/create-csnp')
 
 const pathSnp = currentOS().pathSnippetsStored
 
@@ -24,10 +24,10 @@ const syncCsnpFromVSC = () => {
   getSnippetVSC().forEach(snippet => {
     const snippetType = path.parse(snippet).name
     const { snippetMap } = getSnippetFromVSC(snippetType)
-  
+    
     if (snippetMap.size) {
       snippetMap.forEach(async (snp, snpName) => {
-
+        console.log('=>> snp', { snp })
         const {
           prefix,
           body = [],

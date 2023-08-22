@@ -5,10 +5,10 @@ const { join } = require('path')
 const prompts = require('prompts')
 const { cyan } = require('kolorist')
 
-const { currentOS } = require('./target-path')
-const { createCsnpLocal } = require('./create-csnp')
-const { log } = require('./utils')
-const { getSnippetFromVSC } = require('./snippet-vsc')
+const { currentOS } = require('../utils/target-path')
+const { createCsnpLocal } = require('../utils/create-csnp')
+const { log } = require('../utils/log')
+const { getSnippetFromVSC } = require('../utils/snippet-from-vsc')
 
 const checkFileCsnpLocal = (path) => {
   if (fs.existsSync(path)) {
