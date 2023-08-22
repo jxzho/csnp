@@ -1,6 +1,6 @@
-const { createCsnpLocal } = require('../../create-csnp')
+const { createCsnpLocal } = require('../../utils/create-csnp')
 
-const { log } = require('../../utils')
+const { log } = require('../../utils/log')
 
 const fs = require('fs')
 const path = require('path')
