@@ -4,9 +4,10 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "init": "node prompts.js",
-    "csnp": "node index.js",
-    "sync": "node sync-vsc.js",
+    "init": "node ./scripts/prompts.js",
+    "csnp": "node ./scripts/csnp.js",
+    "sync": "node ./scripts/sync-vsc.js",
+    "push": "node ./scripts/push-cnsp.js",
     "test": "jest"
   },
   "keywords": [],
