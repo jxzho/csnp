@@ -24,6 +24,6 @@
     "prompts": "^2.4.2"
   },
   "bin": {
-    "csnp": "./bin/csnp.js"
+    "csnp": "./bin/entry.js"
   }
 }
