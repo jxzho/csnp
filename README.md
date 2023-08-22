@@ -6,6 +6,7 @@ a code snippets tool for VS Code
 $ yarn
 
 $ yarn run init
+
 $ yarn run csnp
 ```
 
