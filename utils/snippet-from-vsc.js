@@ -4,9 +4,13 @@ const JSON = require('comment-json')
 
 const { targetPath } = require('./target-path')
 
+const Scope = {
+  GLOBAL: 'global'
+}
+
 const getSnippetFromVSC = (snippetType, scope) => {
   let snippetsOrigin
-  const targetFilePath = (scope === 'global')
+  const targetFilePath = (scope === Scope.GLOBAL)
     ? targetPath(snippetType)
     : path.join(__dirname, '.vscode', `${snippetType}.code-snippets`)
 
@@ -26,5 +30,6 @@ const getSnippetFromVSC = (snippetType, scope) => {
 }
 
 module.exports = {
-  getSnippetFromVSC
+  getSnippetFromVSC,
+  Scope
 }

@@ -1,7 +1,7 @@
 const fs = require('fs')
 const matter = require('gray-matter')
 
-const { writeContents } = require('./utils')
+const { writeContents } = require('./write-contents')
 
 const createCsnpLocal = (
   snpPath,
