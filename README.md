@@ -10,12 +10,16 @@ $ yarn run init
 $ yarn run csnp
 ```
 
-## Demo
+## Usage
 
-create vscode snippet
+### Create vscode snippet
 
-![shell-demo](./demo/shell.gif)
+<img src='./demo/shell.gif' width="100%" />
 
-use in vscode
+### Use in vscode
 
-![vscode-demo](./demo/vscode.gif)
+<img src='./demo/vscode.gif' width="100%" />
+
+### Sync local .csnp file to vscode
+
+<img src='./demo/push.gif' width="100%" />
