@@ -5,8 +5,6 @@ const { putCsnpIntoVSC }  = require('../utils/csnp-to-vsc')
 
 const { Scope } = require('../utils/snippet-from-vsc')
 
-console.log({ argv })
-
 const jumpInCsnp = (pathname) => {
   if (fs.existsSync(pathname)) {
     putCsnpIntoVSC(Scope.GLOBAL)
