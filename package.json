@@ -1,8 +1,8 @@
 {
   "name": "csnp",
   "version": "1.0.0",
-  "description": "",
-  "main": "index.js",
+  "description": "Script to gen vsc code snippets.",
+  "main": "./bin/entry",
   "scripts": {
     "init": "node ./scripts/prompts.js",
     "csnp": "node ./scripts/csnp.js",
@@ -14,8 +14,8 @@
     "csnp",
     "code snippets"
   ],
-  "author": "",
-  "license": "ISC",
+  "author": "jxzho",
+  "license": "MIT",
   "dependencies": {
     "comment-json": "^4.2.3",
     "gray-matter": "^4.0.3"
