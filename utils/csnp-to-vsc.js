@@ -67,7 +67,6 @@ const putCsnpIntoVSC = async (scope) => {
 
   } catch (error) {
     log.error('[code execute error]', error)
-    console.log('=>> error', error)
   }
 }
 
