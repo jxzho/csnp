@@ -27,7 +27,6 @@ const syncCsnpFromVSC = () => {
     
     if (snippetMap.size) {
       snippetMap.forEach(async (snp, snpName) => {
-        console.log('=>> snp', { snp })
         const {
           prefix,
           body = [],

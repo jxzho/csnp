@@ -96,7 +96,6 @@ const exec = async () => {
     log.error(error)
     throw Error(error)
   }
-  // console.log(lightGreen(JSON.stringify(res, null, 2)))
 }
 
 const printLoveTips = (pathLocal) => 
