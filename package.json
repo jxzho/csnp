@@ -1,6 +1,6 @@
 {
   "name": "csnp",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "Script to gen vsc code snippets.",
   "main": "./bin/entry",
   "scripts": {
