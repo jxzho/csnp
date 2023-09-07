@@ -31,7 +31,7 @@ describe('create local csnp by', () => {
     
     expect(contents).toBe(_contentCsnpTest)
     
-    // 删除 `createCsnpLocal` 创建的 csnp 文件
+    // remove .csnp file by using `createCsnpLocal` cmd
     if (flag) {
       fs.unlink(csnpPathWaitToCreated, (err) => {
         if (!err) {}
