@@ -1,16 +1,16 @@
-const fs = require('fs')
-// const os = require('os')
-const { join } = require('path')
+import fs from 'node:fs'
+import { join } from 'node:path'
+import prompts from 'prompts'
+import { cyan } from 'kolorist'
 
-const prompts = require('prompts')
-const { cyan } = require('kolorist')
+import { currentOS } from '../utils/target-path.ts'
+import { createCsnpLocal } from '../utils/create-csnp.ts'
+import { Log } from '../utils/log.ts'
+import { getSnippetFromVSC } from '../utils/snippet-from-vsc.ts'
 
-const { currentOS } = require('../utils/target-path')
-const { createCsnpLocal } = require('../utils/create-csnp')
-const { log } = require('../utils/log')
-const { getSnippetFromVSC } = require('../utils/snippet-from-vsc')
+import { Scope } from '../types/enums.ts'
 
-const checkFileCsnpLocal = (path) => {
+const checkFileCsnpLocal = (path: string) => {
   if (fs.existsSync(path)) {
     return `\`${path}\` already exists, pls re-input filename`
   } else {
@@ -69,7 +69,7 @@ const exec = async () => {
 
       const csnpPath = join(__dirname, '..', `csnp/${snippetType}/${res.filename}.csnp`)
 
-      const { snippetMap } = getSnippetFromVSC(snippetType)
+      const { snippetMap } = getSnippetFromVSC(snippetType, Scope.LOCAL)
       const snippetExist = snippetMap.has(res.name) && snippetMap.get(res.name)
       
       const snippetBody = snippetExist
@@ -82,6 +82,7 @@ const exec = async () => {
           name: res.name,
           prefix: res.prefix,
           description: 'my snippet description',
+          scope: Scope.LOCAL
         },
         snippetBody
       )
@@ -89,16 +90,16 @@ const exec = async () => {
       if (flag) {
         printLoveTips(csnpPath)
       } else {
-        log.error('\n' + message + '\n')
+        Log.error('\n' + message + '\n')
       }
     }
   } catch (error) {
-    log.error(error)
-    throw Error(error)
+    Log.error(error)
+    throw Error(String(error))
   }
 }
 
-const printLoveTips = (pathLocal) => 
+const printLoveTips = (pathLocal: string) => 
 console.log(`
   ✨ just use command 👇🏼
 

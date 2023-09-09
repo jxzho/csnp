@@ -1,10 +1,10 @@
-const fs = require('fs')
-const matter = require('gray-matter')
+import fs from 'node:fs'
+import matter from 'gray-matter'
 
-const { writeContents } = require('./write-contents')
+import { writeContents } from './write-contents.ts'
 
-const createCsnpLocal = (
-  snpPath,
+export const createCsnpLocal = (
+  snpPath: string,
   data = {
     name: '',
     prefix: '',
@@ -12,7 +12,11 @@ const createCsnpLocal = (
     scope: '',
   },
   body = 'code snippets'
-) => {
+): Promise<{
+  flag: boolean
+  message?: string
+  contents?: string
+}> => {
   if (fs.existsSync(snpPath)) {
     return Promise.resolve({
       flag: false,
@@ -29,8 +33,4 @@ const createCsnpLocal = (
       contents
     }
   })
-}
-
-module.exports = {
-  createCsnpLocal
 }

@@ -1,6 +1,6 @@
-const prompts = require('prompts')
+import prompts from 'prompts'
 
-const { putCsnpIntoVSC } = require('../utils/csnp-to-vsc')
+import { putCsnpIntoVSC } from '../utils/csnp-to-vsc.ts'
 
 prompts({
   type: 'select',
