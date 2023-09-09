@@ -1,21 +1,21 @@
-const fs = require('fs')
-const path = require('path')
-const JSON = require('comment-json')
-const matter = require('gray-matter')
+import fs from 'node:fs'
+import path from 'node:path'
+import JSON from 'comment-json'
+import matter from 'gray-matter'
 
-const { log } = require('../utils/log')
-const { getSnippetFromVSC } = require('./snippet-from-vsc')
+import { Log } from '../utils/log.ts'
+import { getSnippetFromVSC } from './snippet-from-vsc.ts'
+
+import { Scope } from '../types/enums.ts'
 
 const DIR_CSNP = 'csnp'
 
 const csnpTypes = () => fs.readdirSync(path.join(__dirname, '..', DIR_CSNP), 'utf-8')
 
-const isDir = val => fs.statSync(val).isDirectory()
+const isDir = (val: string) => fs.statSync(val).isDirectory()
 
-const putCsnpIntoVSC = async (scope) => {
+export const putCsnpIntoVSC = async (scope: Scope) => {
   try {
-    // const execFiles = process.argv.slice(2)
-    // const execModeDefault = execFiles.length > 0
     csnpTypes().forEach((type) => { 
       const typePath = path.join(__dirname, '..', DIR_CSNP, type)
       if (isDir(typePath)) {
@@ -56,20 +56,16 @@ const putCsnpIntoVSC = async (scope) => {
 
         fs.writeFile(targetFilePath, strs, (err) => {
           if (err) {
-            log.error('\n' + err + '\n')
+            Log.error('\n' + err + '\n')
             throw Error(`set snippets error!`)
           }
         })
       }
     })
 
-    log.success('success')
+    Log.success('success')
 
   } catch (error) {
-    log.error('[code execute error]', error)
+    Log.error('[code execute error]', error)
   }
-}
-
-module.exports = {
-  putCsnpIntoVSC
 }
