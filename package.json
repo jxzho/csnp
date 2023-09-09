@@ -1,7 +1,7 @@
 {
   "name": "csnp",
   "type": "module",
-  "version": "1.1.0",
+  "version": "1.1.1",
   "packageManager": "pnpm@8.7.1",
   "description": "Gen vscode code snippet",
   "main": "./bin/entry",
