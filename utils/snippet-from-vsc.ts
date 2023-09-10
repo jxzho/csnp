@@ -10,7 +10,7 @@ export const getSnippetFromVSC = (snippetType: string, scope: Scope) => {
   let snippetsOrigin
   const targetFilePath = (scope === Scope.GLOBAL)
     ? targetPath(snippetType)
-    : path.join(__dirname, '.vscode', `${snippetType}.code-snippets`)
+    : path.resolve('.vscode', `${snippetType}.code-snippets`)
 
   if (fs.existsSync(targetFilePath)) {
     snippetsOrigin = fs.readFileSync(targetFilePath, 'utf-8')
