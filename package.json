@@ -6,7 +6,7 @@
   "description": "Gen vscode code snippet",
   "main": "./bin/entry",
   "scripts": {
-    "init": "ts-node --esm ./scripts/prompts.ts",
+    "start": "ts-node --esm ./scripts/prompts.ts",
     "csnp": "ts-node --esm ./scripts/csnp.ts",
     "sync": "ts-node --esm ./scripts/sync-vsc.ts",
     "push": "ts-node --esm ./scripts/push-cnsp.ts",
