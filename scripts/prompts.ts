@@ -2,13 +2,12 @@ import fs from 'node:fs'
 import { resolve } from 'node:path'
 import prompts from 'prompts'
 import { cyan } from 'kolorist'
-
+import { Scope } from '../types/enums.ts'
 import { currentOS } from '../utils/target-path.ts'
 import { createCsnpLocal } from '../utils/create-csnp.ts'
 import { Log } from '../utils/log.ts'
 import { getSnippetFromVSC } from '../utils/snippet-from-vsc.ts'
-
-import { Scope } from '../types/enums.ts'
+import { onPromptCancel } from '../utils/event-handler.ts'
 
 const checkFileCsnpLocal = (path: string) => {
   if (fs.existsSync(path)) {
@@ -34,7 +33,7 @@ const exec = async () => {
         //     ? `\`${type}\` already exists, pls re-input type`
         //     : true
         // }
-      })
+      }, { onCancel: onPromptCancel })
 
       const res = await prompts([{
         type: 'text',
@@ -60,7 +59,7 @@ const exec = async () => {
           const _path = resolve(`csnp/${snippetType}/${filename}.csnp`)
           return checkFileCsnpLocal(_path)
         }
-      }])
+      }], { onCancel: onPromptCancel })
 
       const csnpPath = resolve(`csnp/${snippetType}/${res.filename}.csnp`)
 
@@ -99,7 +98,7 @@ console.log(`
 
   ${cyan(`\`vim ${pathLocal}\``)}
 
-  ${cyan(`\`pnpm run csnp\``)}
+  ${cyan(`\`pnpm csnp\``)}
 
   ✨ to generate your snippets! ❤️
 `)
