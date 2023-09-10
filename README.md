@@ -1,13 +1,14 @@
 # csnp
-a code snippets tool for VS Code
 
-## Flow
-```zsh
-$ yarn
+a script fast to generate vsc code snippets.
 
-$ yarn run init
+## Work Flow
+```shell
+$ pnpm i
 
-$ yarn run csnp
+$ pnpm run init
+
+$ pnpm run csnp
 ```
 
 ## Demo Usage
