@@ -5,19 +5,23 @@ import matter from 'gray-matter'
 
 import { Log } from '../utils/log.ts'
 import { getSnippetFromVSC } from './snippet-from-vsc.ts'
+import { writeContents } from './write-contents.ts'
 
 import { Scope } from '../types/enums.ts'
 
 const DIR_CSNP = 'csnp'
 
-const csnpTypes = () => fs.readdirSync(path.join(__dirname, '..', DIR_CSNP), 'utf-8')
+const csnpTypes = () => fs.readdirSync(
+  path.resolve(DIR_CSNP),
+  'utf-8'
+)
 
 const isDir = (val: string) => fs.statSync(val).isDirectory()
 
 export const putCsnpIntoVSC = async (scope: Scope) => {
   try {
     csnpTypes().forEach((type) => { 
-      const typePath = path.join(__dirname, '..', DIR_CSNP, type)
+      const typePath = path.resolve(DIR_CSNP, type)
       if (isDir(typePath)) {
         const {
           snippetMap,
@@ -54,11 +58,12 @@ export const putCsnpIntoVSC = async (scope: Scope) => {
 
         const strs = JSON.stringify(_map, null, 2)
 
-        fs.writeFile(targetFilePath, strs, (err) => {
-          if (err) {
-            Log.error('\n' + err + '\n')
-            throw Error(`set snippets error!`)
-          }
+        writeContents(
+          targetFilePath,
+          strs
+        ).catch((err) => {
+          Log.error('\n' + err + '\n')
+          throw Error(`set snippets error!`)
         })
       }
     })
