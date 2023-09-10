@@ -1,7 +1,8 @@
-const fs = require('fs')
-const path = require('path')
-const { writeContents } = require('../../utils/write-contents')
-const { log } = require('../../utils/log')
+import { describe, expect, test } from '@jest/globals'
+import fs from 'node:fs'
+import path from 'node:path'
+import { writeContents } from '../../utils/write-contents'
+import { Log } from '../../utils/log'
 
 describe('write contents by path', () => {
   test('`writeContents`', async () => {
@@ -21,7 +22,7 @@ describe('write contents by path', () => {
       })
 
     } catch (error) {
-      log.error('=>> error', error)
+      Log.error('=>> error', error)
     } finally {
       const { dir } = path.parse(targetPath)
       fs.rm(dir, { recursive: true, force: true }, (err) => {

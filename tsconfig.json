@@ -26,6 +26,6 @@
    "include": [
      "scripts",
      "utils",
-     "test"
+     "__test__"
    ]
  }
