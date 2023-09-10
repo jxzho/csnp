@@ -1,6 +1,7 @@
 import prompts from 'prompts'
 
 import { putCsnpIntoVSC } from '../utils/csnp-to-vsc.ts'
+import { onPromptCancel } from '../utils/event-handler.ts'
 
 prompts({
   type: 'select',
@@ -12,6 +13,8 @@ prompts({
     { title: 'Local', value: 'local' }
   ],
   hint: ' '
+}, {
+  onCancel: onPromptCancel
 }).then(({ scope }) => {
   putCsnpIntoVSC(scope)
 })
