@@ -6,21 +6,23 @@ a script fast to generate vsc code snippets.
 ```shell
 $ pnpm i
 
-$ pnpm run init
+$ pnpm start
 
-$ pnpm run csnp
+$ pnpm csnp
 ```
 
 ## Demo Usage
 
 - Create vscode snippet
 
-  <img src='./demo/shell.gif' width="100%" />
+  <img src='./demo/run_start.gif' width="100%" />
 
 - Use in vscode
+
+  exp: input `-clg` to generate code `console.log()`
 
   <img src='./demo/vscode.gif' width="100%" />
 
 - Sync local .csnp file to vscode
 
-  <img src='./demo/push.gif' width="100%" />
+  <img src='./demo/run_push.gif' width="100%" />
