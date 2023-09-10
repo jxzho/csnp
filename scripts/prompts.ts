@@ -1,5 +1,5 @@
 import fs from 'node:fs'
-import { join } from 'node:path'
+import { resolve } from 'node:path'
 import prompts from 'prompts'
 import { cyan } from 'kolorist'
 
@@ -23,11 +23,6 @@ const exec = async () => {
     const pathSnp = currentOS().pathSnippetsStored
 
     if (pathSnp) {
-      // const snippets = fs.readdirSync(
-      //   join(__dirname, 'csnp'),
-      //   'utf-8'
-      // )
-
       const { type: snippetType } = await prompts({
         type: 'text',
         name: 'type',
@@ -60,14 +55,14 @@ const exec = async () => {
         type: 'text',
         name: 'filename',
         message: 'Input snippet file name',
-        initial: 'my-snippets',
+        initial: 'my-snippets', 
         validate: (filename) => {
-          const _path = join(__dirname, '..', `csnp/${snippetType}/${filename}.csnp`)
+          const _path = resolve(`csnp/${snippetType}/${filename}.csnp`)
           return checkFileCsnpLocal(_path)
         }
       }])
 
-      const csnpPath = join(__dirname, '..', `csnp/${snippetType}/${res.filename}.csnp`)
+      const csnpPath = resolve(`csnp/${snippetType}/${res.filename}.csnp`)
 
       const { snippetMap } = getSnippetFromVSC(snippetType, Scope.LOCAL)
       const snippetExist = snippetMap.has(res.name) && snippetMap.get(res.name)
@@ -81,8 +76,7 @@ const exec = async () => {
         {
           name: res.name,
           prefix: res.prefix,
-          description: 'my snippet description',
-          scope: Scope.LOCAL
+          description: 'my snippet description'
         },
         snippetBody
       )
@@ -105,7 +99,7 @@ console.log(`
 
   ${cyan(`\`vim ${pathLocal}\``)}
 
-  ${cyan(`\`yarn run csnp\``)}
+  ${cyan(`\`pnpm run csnp\``)}
 
   ✨ to generate your snippets! ❤️
 `)
