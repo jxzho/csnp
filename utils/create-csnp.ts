@@ -3,7 +3,7 @@ import matter from 'gray-matter'
 
 import { writeContents } from './write-contents.ts'
 
-export const createCsnpLocal = (
+export const createCsnpLocal: __ACTUATOR__ = (
   snpPath: string,
   data = {
     name: '',
@@ -12,11 +12,7 @@ export const createCsnpLocal = (
     scope: '',
   },
   body = 'code snippets'
-): Promise<{
-  flag: boolean
-  message?: string
-  contents?: string
-}> => {
+) => {
   if (fs.existsSync(snpPath)) {
     return Promise.resolve({
       flag: false,
@@ -34,3 +30,18 @@ export const createCsnpLocal = (
     }
   })
 }
+
+type __ACTUATOR__  = (
+  snpPath: string,
+  data: {
+    name: string
+    prefix: string
+    description: string
+    scope?: string
+  },
+  body: string
+) => Promise<{
+  flag: boolean
+  message?: string
+  contents?: string
+}>
