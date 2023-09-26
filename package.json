@@ -5,6 +5,9 @@
   "packageManager": "pnpm@8.7.1",
   "description": "Gen vscode code snippet",
   "main": "./bin/entry",
+  "bin": {
+    "csnp": "./bin/entry.js"
+  },
   "scripts": {
     "start": "ts-node --esm ./scripts/prompts.ts",
     "csnp": "ts-node --esm ./scripts/csnp.ts",
@@ -13,11 +16,6 @@
     "test": "jest",
     "typecheck": "tsc --noEmit"
   },
-  "keywords": [
-    "csnp",
-    "VSC Code Snippets"
-  ],
-  "author": "Russell Xio",
   "license": "MIT",
   "homepage": "https://github.com/jxzho/csnp#csnp",
   "repository": {
@@ -54,7 +52,9 @@
   "engines": {
     "node": "^14.18.0 || >=16.0.0"
   },
-  "bin": {
-    "csnp": "./bin/entry.js"
-  }
+  "keywords": [
+    "csnp",
+    "VSC Code Snippets"
+  ],
+  "author": "Russell Xio"
 }
