@@ -1,6 +1,6 @@
 import re
 
-f = open('csnp/russell/py.csnp')
+f = open('.csnp/taro/py.csnp')
 
 contents = f.read()
 

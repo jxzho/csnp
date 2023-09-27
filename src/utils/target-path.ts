@@ -1,7 +1,7 @@
 import os from 'node:os'
 import path from 'node:path'
 
-import { Platform } from './platform.ts'
+import { Platform } from './platform'
 
 const $HOME = os.homedir()
 

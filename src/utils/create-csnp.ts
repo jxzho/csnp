@@ -1,7 +1,7 @@
 import fs from 'node:fs'
 import matter from 'gray-matter'
 
-import { writeContents } from './write-contents.ts'
+import { writeContents } from './write-contents'
 
 export const createCsnpLocal: __ACTUATOR__ = (
   snpPath: string,

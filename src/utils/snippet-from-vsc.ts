@@ -2,9 +2,9 @@ import fs from 'node:fs'
 import path from 'node:path'
 import JSON from 'comment-json'
 
-import { targetPath } from './target-path.ts'
+import { targetPath } from './target-path'
 
-import { Scope } from '../types/enums.ts'
+import { Scope } from '../types/enums'
 
 export const getSnippetFromVSC = (snippetType: string, scope: Scope) => {
   let snippetsOrigin

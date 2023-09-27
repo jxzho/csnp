@@ -1,7 +1,7 @@
 import prompts from 'prompts'
 
-import { putCsnpIntoVSC } from '../utils/csnp-to-vsc.ts'
-import { onPromptCancel } from '../utils/event-handler.ts'
+import { putCsnpIntoVSC } from '../utils/csnp-to-vsc'
+import { onPromptCancel } from '../utils/event-handler'
 
 prompts({
   type: 'select',
