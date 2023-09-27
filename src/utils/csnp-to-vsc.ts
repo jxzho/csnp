@@ -3,18 +3,20 @@ import path from 'node:path'
 import JSON from 'comment-json'
 import matter from 'gray-matter'
 
-import { Log } from '../utils/log.ts'
-import { getSnippetFromVSC } from './snippet-from-vsc.ts'
-import { writeContents } from './write-contents.ts'
+import { Log } from '../utils/log'
+import { getSnippetFromVSC } from './snippet-from-vsc'
+import { writeContents } from './write-contents'
 
-import { Scope } from '../types/enums.ts'
+import { Scope } from '../types/enums'
 
-const DIR_CSNP = 'csnp'
+const DIR_CSNP = '.csnp'
 
-const csnpTypes = () => fs.readdirSync(
-  path.resolve(DIR_CSNP),
-  'utf-8'
-)
+const csnpTypes = () => {
+  return fs.readdirSync(
+    path.resolve(DIR_CSNP),
+    'utf-8'
+  )
+}
 
 const isDir = (val: string) => fs.statSync(val).isDirectory()
 
@@ -22,6 +24,7 @@ export const putCsnpIntoVSC = async (scope: Scope) => {
   try {
     csnpTypes().forEach((type) => { 
       const typePath = path.resolve(DIR_CSNP, type)
+
       if (isDir(typePath)) {
         const {
           snippetMap,
@@ -63,14 +66,14 @@ export const putCsnpIntoVSC = async (scope: Scope) => {
           strs
         ).catch((err) => {
           Log.error('\n' + err + '\n')
-          throw Error(`set snippets error!`)
+          throw (`set snippets error! 💔`)
         })
       }
     })
 
-    Log.success('success')
+    Log.success('done ✨')
 
   } catch (error) {
-    Log.error('[code execute error]', error)
+    Log.error('[csnp-to-vsc execute error]', error)
   }
 }
