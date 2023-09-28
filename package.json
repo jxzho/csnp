@@ -23,7 +23,7 @@
   ],
   "scripts": {
     "prepublishOnly": "npm run build",
-    "start": "jiti src/scripts/prompts.ts",
+    "start": "jiti src/scripts/start.ts",
     "test": "jest",
     "check": "tsc --noEmit && jest",
     "build": "unbuild"
