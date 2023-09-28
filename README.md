@@ -1,4 +1,8 @@
+<br>
+
 # csnp
+
+<img alt="npm" src="https://img.shields.io/npm/v/csnp?logo=Visual%20Studio%20Code&logoColor=%23007ACC&labelColor=%23fff&color=F83C00"><br>
 
 a tool fast to generate vscode code snippets.
 
@@ -91,6 +95,10 @@ $ csnp pull
 # global (vscode)
 $ csnp pull --global
 ```
+
+## Link
+
+<a href='https://code.visualstudio.com/docs/editor/userdefinedsnippets' target='_blank' >Snippets in Visual Studio Code</a>
 
 ## License
 
