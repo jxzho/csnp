@@ -3,25 +3,47 @@
 a tool fast to generate vscode code snippets.
 
 ## Install
-```shell
-$ npm install -g
+```bash
+$ npm i -g csnp
 
-$ yarn install -g
+$ yarn i -g csnp
 
-$ pnpm install -g
+$ pnpm i -g csnp
+
+$ bun i -g csnp
 ```
 
-## $ csnp
+## `csnp`
+
+easily use interactive prompts to generate .csnp files for managing code snippets
 
 <img src='demo/csnp.png' alt='csnp' width="100%" />
 
-## $ csnp push
+## .csnp to code-snippets
 
-transform all *.csnp files and store locally or global(vscode).
+transform all *.csnp files and store locally or global(vscode)
 
-## $ csnp pull
+```bash
+# local (default)
+$ csnp push
 
-sync all snippets from local or global(vscode) and store in .csnp dir.
+# global (vscode)
+$ csnp push --global
+```
+
+
+
+## code-snippets to .csnp
+
+sync all snippets from local or global(vscode) and store in .csnp dir
+
+```bash
+# local (default)
+$ csnp pull
+
+# global (vscode)
+$ csnp pull --global
+```
 
 ## License
 
