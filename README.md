@@ -1,28 +1,28 @@
 # csnp
 
-a script fast to generate vsc code snippets.
+a tool fast to generate vscode code snippets.
 
-## Work Flow
+## Install
 ```shell
-$ pnpm i
+$ npm install -g
 
-$ pnpm start
+$ yarn install -g
 
-$ pnpm csnp
+$ pnpm install -g
 ```
 
-## Demo Usage
+## $ csnp
 
-- Create vscode snippet
+<img src='demo/csnp.png' alt='csnp' width="100%" />
 
-  <img src='./demo/run_start.gif' width="100%" />
+## $ csnp push
 
-- Use in vscode
+transform all *.csnp files and store locally or global(vscode).
 
-  exp: input `-clg` to generate code `console.log()`
+## $ csnp pull
 
-  <img src='./demo/vscode.gif' width="100%" />
+sync all snippets from local or global(vscode) and store in .csnp dir.
 
-- Sync local .csnp file to vscode
+## License
 
-  <img src='./demo/run_push.gif' width="100%" />
+MIT
