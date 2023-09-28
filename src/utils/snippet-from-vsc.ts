@@ -17,12 +17,12 @@ export const getSnippetFromVSC = (snippetType: string, scope: Scope) => {
   }
 
   try {
-    const snippetParsed = snippetsOrigin
+    const snippetParsed: Record<string, any> = snippetsOrigin
       ? JSON.parse(snippetsOrigin)
-      : {}
+      : {} as any
 
     const snippetMap = new Map(
-      Array.isArray(snippetParsed)
+      snippetParsed
         ? Object.entries(snippetParsed)
         : []
     )
