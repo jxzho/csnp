@@ -2,15 +2,13 @@ import fs from 'node:fs'
 import { resolve } from 'node:path'
 import prompts from 'prompts'
 import { cyan } from 'kolorist'
-import minimist from 'minimist'
 import { Scope } from '../types/enums'
 import { currentOS } from '../utils/target-path'
 import { createCsnpLocal } from '../utils/create-csnp'
 import { Log } from '../utils/log'
 import { getSnippetFromVSC } from '../utils/snippet-from-vsc'
 import { onPromptCancel } from '../utils/event-handler'
-import { putCsnpIntoVSC } from '../utils/csnp-to-vsc'
-import { syncCsnpFromVSC } from '../scripts/pull'
+import { shunt } from '../utils/shunt'
 
 const checkFileCsnpLocal = (path: string) => {
   if (fs.existsSync(path)) {
@@ -22,13 +20,7 @@ const checkFileCsnpLocal = (path: string) => {
 
 const exec = async () => {
   try {
-    const argv = minimist(process.argv.slice(2))
-    
-    if (argv._?.[0] === 'push') {
-      return putCsnpIntoVSC(argv.global ? Scope.GLOBAL : Scope.LOCAL)
-    } else if (argv._?.[0] === 'pull') {
-      return syncCsnpFromVSC(argv.global ? Scope.GLOBAL : Scope.LOCAL)
-    }
+    if (!await shunt()) return
 
     const pathSnp = currentOS().pathSnippetsStored
 
