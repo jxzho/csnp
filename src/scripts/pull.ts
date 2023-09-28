@@ -1,6 +1,6 @@
 import fs from 'node:fs'
 import path from 'node:path'
-
+import { cyan } from 'kolorist'
 import { currentOS } from '../utils/target-path'
 import { getSnippetFromVSC } from '../utils/snippet-from-vsc'
 import { createCsnpLocal } from '../utils/create-csnp'
@@ -41,11 +41,13 @@ export const syncCsnpFromVSC = (scope: Scope) => {
 
         if (prefix) {
           const snippetBody = getSnippetBody(body)
-          
+
+          const csnpLocalPath = `.csnp/${snippetType}/${prefix}.csnp`
+
           try {
             await createCsnpLocal(
-              `./.csnp/${snippetType}/${prefix}.csnp`,
-              {
+              csnpLocalPath,
+              { 
                 name: snpName,
                 prefix,
                 description,
@@ -54,9 +56,9 @@ export const syncCsnpFromVSC = (scope: Scope) => {
               snippetBody
             )
   
-            Log.success(`sync \`${snippetType}.${prefix}\` done ✨`)
+            Log.success(`sync ${prefix} done ✨ ${cyan(csnpLocalPath)}`)
           } catch (error) {
-            Log.error(`💔 sync \`${snippetType}.${prefix}\` failed`)
+            Log.error(`💔 sync ${prefix}[${snippetType}] failed, ${error}`)
           }
         }
   

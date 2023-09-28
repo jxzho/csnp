@@ -22,7 +22,8 @@ const isDir = (val: string) => fs.statSync(val).isDirectory()
 
 export const putCsnpIntoVSC = async (scope: Scope) => {
   try {
-    csnpTypes().forEach((type) => { 
+    const types = csnpTypes()
+    types.forEach((type) => { 
       const typePath = path.resolve(DIR_CSNP, type)
 
       if (isDir(typePath)) {
@@ -64,14 +65,15 @@ export const putCsnpIntoVSC = async (scope: Scope) => {
         writeContents(
           targetFilePath,
           strs
-        ).catch((err) => {
+        )
+        .catch((err) => {
           Log.error('\n' + err + '\n')
-          throw (`set snippets error! 💔`)
+          throw (`push ${type} snippets error 💔`)
         })
       }
     })
 
-    Log.success('done ✨')
+    Log.success(`csnp push ${scope} done ✨, [${types}]`)
 
   } catch (error) {
     Log.error('[csnp-to-vsc execute error]', error)
