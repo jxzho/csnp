@@ -1,6 +1,0 @@
----
-name: Arrow Function
-prefix: -anfn
-description: ES6 Arrow Function
----
-() => {$0}

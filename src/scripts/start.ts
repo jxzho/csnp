@@ -61,12 +61,12 @@ const exec = async () => {
         message: 'Input snippet file name',
         initial: 'exp-snippets, will get `exp-snippets.csnp`', 
         validate: (filename) => {
-          const _path = resolve(`.csnp/${snippetType}/${filename}.csnp`)
+          const _path = resolve(`.vscode/.csnp/${snippetType}/${filename}.csnp`)
           return checkFileCsnpLocal(_path)
         }
       }], { onCancel: onPromptCancel })
 
-      const csnpPath = resolve(`.csnp/${snippetType}/${res.filename}.csnp`)
+      const csnpPath = resolve(`.vscode/.csnp/${snippetType}/${res.filename}.csnp`)
 
       const { snippetMap } = getSnippetFromVSC(snippetType, Scope.LOCAL)
       const snippetExist = snippetMap.has(res.name) && snippetMap.get(res.name)

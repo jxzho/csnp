@@ -1,6 +1,6 @@
 import re
 
-f = open('.csnp/taro/py.csnp')
+f = open('.vscode/.csnp/taro/py.csnp')
 
 contents = f.read()
 

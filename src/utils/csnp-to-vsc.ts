@@ -9,7 +9,7 @@ import { writeContents } from './write-contents'
 
 import { Scope } from '../types/enums'
 
-const DIR_CSNP = '.csnp'
+const DIR_CSNP = '.vscode/.csnp'
 
 const csnpTypes = () => {
   return fs.readdirSync(

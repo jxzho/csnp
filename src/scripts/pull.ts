@@ -42,7 +42,7 @@ export const syncCsnpFromVSC = (scope: Scope) => {
         if (prefix) {
           const snippetBody = getSnippetBody(body)
 
-          const csnpLocalPath = `.csnp/${snippetType}/${prefix}.csnp`
+          const csnpLocalPath = `.vscode/.csnp/${snippetType}/${prefix}.csnp`
 
           try {
             await createCsnpLocal(

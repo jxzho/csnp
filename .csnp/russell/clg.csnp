@@ -1,6 +1,0 @@
----
-name: Console With =>>
-prefix: -clg
-description: console.log('=>> ?', ?)
----
-console.log('=>> $1', $2)
