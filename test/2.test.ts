@@ -1,8 +1,8 @@
 import { describe, expect, test } from '@jest/globals'
 import fs from 'node:fs'
 import path from 'node:path'
-import { writeContents } from '../../src/utils/write-contents'
-import { Log } from '../../src/utils/log'
+import { writeContents } from '../src/utils/write-contents'
+import { Log } from '../src/utils/log'
 
 describe('write contents by path', () => {
   test('`writeContents`', async () => {
