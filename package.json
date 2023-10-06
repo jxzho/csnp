@@ -34,11 +34,6 @@
     "type": "git",
     "url": "git+https://github.com/jxzho/csnp.git"
   },
-  "dependencies": {
-    "comment-json": "^4.2.3",
-    "gray-matter": "^4.0.3",
-    "typescript": "^5.2.2"
-  },
   "devDependencies": {
     "@babel/core": "^7.22.17",
     "@babel/preset-env": "^7.22.15",
@@ -49,12 +44,15 @@
     "@types/node": "^20.5.9",
     "@types/prompts": "^2.4.4",
     "babel-jest": "^29.6.4",
+    "comment-json": "^4.2.3",
+    "gray-matter": "^4.0.3",
     "jest": "^29.4.1",
     "jiti": "^1.20.0",
     "kolorist": "^1.6.0",
     "minimist": "^1.2.8",
     "prompts": "^2.4.2",
     "ts-jest": "^29.1.1",
+    "typescript": "^5.2.2",
     "unbuild": "^2.0.0"
   },
   "engines": {
