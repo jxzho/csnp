@@ -11,17 +11,24 @@ export const writeContents = (currentPath: string, contents: string) => {
     parsed: ParsedPath
     contents: string
   }>((resolve, reject) => {
-    mkdir(dir, { recursive: true }).then(() => {
-      fs.writeFile(currentPath, contents, 'utf-8', (err) => {
-        if (!err) {
-          resolve({
-            parsed,
-            contents
-          })
-        } else {
-          reject(err)
+    mkdir(
+      dir,
+      {
+        recursive: true
+      }
+    )
+    .then(() => {
+      fs.writeFile(
+        currentPath,
+        contents,
+        'utf-8',
+        err => {
+          if (!err)
+            resolve({ parsed, contents })
+          else
+            reject(err)
         }
-      })
+      )
     })
   })
 }

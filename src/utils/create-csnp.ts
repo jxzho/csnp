@@ -22,9 +22,8 @@ export const createCsnpLocal: __ACTUATOR__ = (
 
   let contents = matter.stringify(body, data)
 
-  if (contents.match(/.+\n$/)) {
+  if (contents.match(/.+\n$/))
     contents = contents.slice(0, -1)
-  }
 
   return writeContents(
     snpPath,

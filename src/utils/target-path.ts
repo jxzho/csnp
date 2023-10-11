@@ -20,18 +20,14 @@ const arrOS = [
   }
 ]
 
-export const currentOS = () => ({
-  ...arrOS.find(os => os.in)
-})
+export const currentOS = () => ({ ...arrOS.find(os => os.in) })
 
 const OS = currentOS()
 
 export const targetPath = (name: string) => {
   const pathSnippetsStored = OS.pathSnippetsStored
-
-  if (name && pathSnippetsStored) {
+  if (name && pathSnippetsStored)
     return path.join(pathSnippetsStored, `${name}.code-snippets`)
-  }
-
-  return ''
+  else
+    return ''
 }

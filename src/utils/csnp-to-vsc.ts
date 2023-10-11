@@ -26,56 +26,55 @@ export const putCsnpIntoVSC = async (scope: Scope) => {
     types.forEach((type) => { 
       const typePath = path.resolve(DIR_CSNP, type)
 
-      if (isDir(typePath)) {
-        const {
-          snippetMap,
-          snippetsOrigin,
-          snippetParsed,
-          targetFilePath
-        } = getSnippetFromVSC(type, scope)
+      if (!isDir(typePath))
+        return
+      
+      const {
+        snippetMap,
+        snippetsOrigin,
+        snippetParsed,
+        targetFilePath
+      } = getSnippetFromVSC(type, scope)
 
-        fs.readdirSync(typePath, 'utf-8').forEach(csnp => {
-          const csnpPath = path.join(typePath, csnp)
-          
-          const str = fs.readFileSync(csnpPath, 'utf8')
+      fs.readdirSync(typePath, 'utf-8').forEach(csnp => {
+        const csnpPath = path.join(typePath, csnp)
+        const str = fs.readFileSync(csnpPath, 'utf8')
+        const { content: body, data: dataMatter } = matter(str)
+        const { name, prefix, description, scope } = dataMatter || {}
 
-          const { content: body, data: dataMatter } = matter(str)
-          const { name, prefix, description, scope } = dataMatter || {}
-
-          let _valueMap
-          if (snippetMap.has(name)) {
-            _valueMap = snippetMap.get(name)
-            snippetMap.delete(name)
-          }
-          snippetMap.set(name, {
+        let _valueMap
+        if (snippetMap.has(name)) {
+          _valueMap = snippetMap.get(name)
+          snippetMap.delete(name)
+        }
+        snippetMap.set(
+          name,
+          {
             ..._valueMap,
             prefix,
             body: body.split('\n'),
             description,
             scope
-          })
-        })
-
-        const snippetNew = Object.fromEntries(snippetMap)
-
-        const _map = snippetsOrigin ? JSON.assign(snippetParsed, snippetNew, Object.keys(snippetNew)) : snippetNew
-
-        const strs = JSON.stringify(_map, null, 2)
-
-        writeContents(
-          targetFilePath,
-          strs
+          }
         )
-        .catch((err) => {
-          Log.error('\n' + err + '\n')
-          throw (`push ${type} snippets error 💔`)
-        })
-      }
+      })
+
+      const snippetNew = Object.fromEntries(snippetMap)
+      const _map = snippetsOrigin ? JSON.assign(snippetParsed, snippetNew, Object.keys(snippetNew)) : snippetNew
+      const strs = JSON.stringify(_map, null, 2)
+
+      writeContents(
+        targetFilePath,
+        strs
+      )
+      .catch((err) => {
+        Log.error('\n' + err + '\n')
+        throw (`push ${type} snippets error 💔`)
+      })
     })
-
     Log.success(`csnp push ${scope} done ✨, [${types}]`)
-
-  } catch (error) {
+  }
+  catch (error) {
     Log.error('[csnp-to-vsc execute error]', error)
   }
 }

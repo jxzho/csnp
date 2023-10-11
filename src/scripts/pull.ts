@@ -13,16 +13,14 @@ const getSnippetVSC = () => {
   let snippets = pathSnp
     ? (fs.readdirSync(pathSnp, 'utf-8') || [])
     : []
-  return snippets.filter(snp => {
-    return (/.+\.((code-snippets)|(json))$/.test(snp))
-  })
+  return snippets.filter(snp => /.+\.((code-snippets)|(json))$/.test(snp))
 }
 
 export const getSnippetBody = (body = []) => {
-  if (Array.isArray(body)) {
+  if (Array.isArray(body))
     return body.join('\n')
-  }
-  return body
+  else
+    return body
 }
 
 export const syncCsnpFromVSC = (scope: Scope) => {
@@ -39,29 +37,28 @@ export const syncCsnpFromVSC = (scope: Scope) => {
           scope = ''
         } = snp || {}
 
-        if (prefix) {
-          const snippetBody = getSnippetBody(body)
+        if (!prefix)
+          return
 
-          const csnpLocalPath = `.vscode/.csnp/${snippetType}/${prefix}.csnp`
+        const snippetBody = getSnippetBody(body)
+        const csnpLocalPath = `.vscode/.csnp/${snippetType}/${prefix}.csnp`
 
-          try {
-            await createCsnpLocal(
-              csnpLocalPath,
-              { 
-                name: snpName,
-                prefix,
-                description,
-                scope
-              },
-              snippetBody
-            )
-  
-            Log.success(`sync ${prefix} done ✨ ${cyan(csnpLocalPath)}`)
-          } catch (error) {
-            Log.error(`💔 sync ${prefix}[${snippetType}] failed, ${error}`)
-          }
+        try {
+          await createCsnpLocal(
+            csnpLocalPath,
+            { 
+              name: snpName,
+              prefix,
+              description,
+              scope
+            },
+            snippetBody
+          )
+          Log.success(`sync ${prefix} done ✨ ${cyan(csnpLocalPath)}`)
         }
-  
+        catch (error) {
+          Log.error(`💔 sync ${prefix}[${snippetType}] failed, ${error}`)
+        }
       })
     }
   })

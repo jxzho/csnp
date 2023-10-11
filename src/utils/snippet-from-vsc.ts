@@ -21,10 +21,9 @@ export const getSnippetFromVSC = (snippetType: string, scope: Scope) => {
       ? JSON.parse(snippetsOrigin)
       : {} as any
 
-    const snippetMap = new Map(
-      snippetParsed
-        ? Object.entries(snippetParsed)
-        : []
+    const snippetMap = new Map(snippetParsed
+      ? Object.entries(snippetParsed)
+      : []
     )
 
     return {
@@ -33,8 +32,8 @@ export const getSnippetFromVSC = (snippetType: string, scope: Scope) => {
       snippetParsed,
       snippetMap,
     }
-
-  } catch (error) {
+  }
+  catch (error) {
     throw(error)
   }
 }
