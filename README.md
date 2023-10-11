@@ -1,10 +1,12 @@
-<br>
 
-# csnp
 
-<img alt="npm" src="https://img.shields.io/npm/v/csnp?logo=Visual%20Studio%20Code&logoColor=%23007ACC&labelColor=%23fff&color=F83C00"><br>
+<h1 align=center>csnp</h1>
 
-a tool fast to generate vscode code snippets.
+<p align=center>a tool fast to generate vscode code snippets.</p>
+
+<p align=center>
+  <img alt="npm" src="https://img.shields.io/npm/v/csnp?logo=Visual%20Studio%20Code&logoColor=%23007ACC&labelColor=%23fff&color=F83C00">
+</p>
 
 ## Install
 ```bash
