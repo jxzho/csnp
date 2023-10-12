@@ -24,14 +24,14 @@ describe('create local csnp by', () => {
 
     expect(flag).toBe(true)
 
-    const csnp2WherePutInto = path.resolve('test', 'csnp/2.csnp')
-
-    const _contentCsnpTest = fs.readFileSync(
-      csnp2WherePutInto,
-      'utf-8'
-    )
-    
-    expect(contents).toBe(_contentCsnpTest)
+    expect(contents).toMatchInlineSnapshot(`
+"---
+name: My Snippet
+prefix: '-prefix'
+description: my snippet description
+---
+code snippets"
+`)
     
     // remove csnp file by using `createCsnpLocal` cmd
     if (flag) {
