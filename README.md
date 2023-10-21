@@ -8,6 +8,8 @@
   <img alt="npm" src="https://img.shields.io/npm/v/csnp?logo=Visual%20Studio%20Code&logoColor=%23007ACC&labelColor=%23fff&color=F83C00">
 </p>
 
+<img alt="npm" src="./demo/demo.gif" width=100% alt=demo>
+
 ## Install
 ```bash
 $ npm i -g csnp
