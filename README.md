@@ -21,7 +21,7 @@ $ bun i -g csnp
 
 ## `csnp`
 
-easily use interactive prompts to generate .csnp files for managing code snippets
+Using interactive prompts to generate .csnp files for managing code snippets.
 
 <img src='demo/csnp.png' alt='csnp' width="66%" />
 
