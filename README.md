@@ -1,3 +1,9 @@
+<p align="center">
+  <a href="https://www.npmjs.com/package/csnp" target="_blank" rel="noopener noreferrer">
+    <img width="220" src="https://ik.imagekit.io/junxio/csnp/logo.png?v" alt="csnp logo">
+  </a>
+</p>
+
 <h1 align=center>csnp</h1>
 
 <p align=center>A tool can generate VSCode code snippets fastly.</p>
