@@ -27,9 +27,9 @@ $ bun i -g csnp
 
 ## `csnp`
 
-Using interactive prompts to generate .csnp files for managing code snippets.
+Using interactive prompts to generate .csnp files for managing vscode code snippets.
 
-<img src='demo/csnp.png' alt='csnp' width="66%" />
+<img src='https://cdn.junxio.cc/static/images/blog/20240720113153.png' alt='csnp' width="66%" />
 
 ### Rule csnp path
 
@@ -70,13 +70,9 @@ description: log sth
 console.log($1)
 ```
 
-After `csnp push`, use the prefix `-log` in VSCode to generate code.
+After using `csnp push`, input the prefix `-log` and press Enter to generate the code.
 
-<img src='demo/prefix.png' alt='-clg' width="66%" />
-
-Result:
-
-<img src='demo/result.png' alt='result' width="66%" />
+<img src='https://cdn.junxio.cc/static/images/blog/Kapture 2024-07-20 at 11.26.46.gif' alt='-clg' width="66%" />
 
 ## .csnp to code-snippets
 
