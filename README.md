@@ -1,12 +1,12 @@
 <p align="center">
   <a href="https://www.npmjs.com/package/csnp" target="_blank" rel="noopener noreferrer">
-    <img width="220" src="https://ik.imagekit.io/junxio/csnp/logo.png?v" alt="csnp logo">
+    <img width="220" src="https://ik.imagekit.io/junxio/csnp/CSNP.jpg" alt="csnp logo">
   </a>
 </p>
 
 <h1 align=center>csnp</h1>
 
-<p align=center>A tool can generate VSCode code snippets fastly.</p>
+<p align=center>A cli-tool for generating VSCode code snippets.</p>
 
 <p align=center>
   <img alt="npm" src="https://img.shields.io/npm/v/csnp?logo=Visual%20Studio%20Code&logoColor=%23007ACC&labelColor=%23fff&color=F83C00">
