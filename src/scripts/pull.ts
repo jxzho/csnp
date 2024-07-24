@@ -1,20 +1,10 @@
-import fs from 'node:fs'
 import path from 'node:path'
 import { cyan } from 'kolorist'
-import { currentOS } from '../utils/target-path'
 import { getSnippetFromVSC } from '../utils/snippet-from-vsc'
 import { createCsnpLocal } from '../utils/create-csnp'
 import { Log } from '../utils/log'
 import { Scope } from '../types/enums'
-
-const pathSnp = currentOS().pathSnippetsStored
-
-const getSnippetVSC = () => {
-  let snippets = pathSnp
-    ? (fs.readdirSync(pathSnp, 'utf-8') || [])
-    : []
-  return snippets.filter(snp => /.+\.((code-snippets)|(json))$/.test(snp))
-}
+import { getSnippetVSC } from '../utils/vsc-snippets'
 
 export const getSnippetBody = (body = []) => {
   if (Array.isArray(body))
@@ -54,10 +44,10 @@ export const syncCsnpFromVSC = (scope: Scope) => {
             },
             snippetBody
           )
-          Log.success(`sync ${prefix} done ✨ ${cyan(csnpLocalPath)}`)
+          Log.success(`\n Yay! Sync ${prefix} done ✨ ${cyan(csnpLocalPath)} \n`)
         }
         catch (error) {
-          Log.error(`💔 sync ${prefix}[${snippetType}] failed, ${error}`)
+          Log.error(`\n Ouch: Sync ${prefix}[${snippetType}] failed, ${error} \n`)
         }
       })
     }

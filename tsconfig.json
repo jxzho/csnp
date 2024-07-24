@@ -1,13 +1,18 @@
 {
   "compilerOptions": {
-    "target": "ES2022",
-    "module": "ES2020",
+    "target": "ESNext",
+    "module": "ESNext",
     "moduleResolution": "Bundler",
     "noUnusedLocals": true,
     "strict": true,
     "esModuleInterop": true,
     "forceConsistentCasingInFileNames": true,
-    "declaration": true,
-    "strictNullChecks": true
-  }
+    "resolveJsonModule": true,
+    "strictNullChecks": true,
+    "jsx": "react-jsx",
+  },
+  "include": [
+    "src/**/*",
+    "rollup.config.ts"
+  ]
  }
