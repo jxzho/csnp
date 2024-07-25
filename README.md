@@ -1,6 +1,6 @@
 <p align="center">
   <a href="https://www.npmjs.com/package/csnp" target="_blank" rel="noopener noreferrer">
-    <img width="220" src="https://ik.imagekit.io/junxio/csnp/CSNP.jpg" alt="csnp logo">
+    <img width="268" src="https://ik.imagekit.io/junxio/csnp/CSNP.jpg" alt="logo for csnp">
   </a>
 </p>
 
@@ -16,50 +16,56 @@
 
 ## Install
 ```bash
-$ npm i -g csnp
+pnpm i -g csnp # recommend
 
-$ yarn i -g csnp
+npm i -g csnp
 
-$ pnpm i -g csnp
+yarn i -g csnp
 
-$ bun i -g csnp
+bun i -g csnp
 ```
 
 ## `csnp`
 
-Using interactive prompts to generate .csnp files for managing vscode code snippets.
+Using interactive prompts to generate `.csnp` files for managing vscode code snippets.
 
 <img src='demo/start.png' alt='csnp' width="100%" />
 
-### Rule csnp path
+### Rule csnp Path
+
+The expected path for your snippets is:
+
+`.csnp/{SnippetType}/{SnippetName}.csnp`
+
+For example:
 
 `.csnp/js/log.csnp`
 
-match
-
-`.csnp/{SnippetType}/{SnippetFileName}.csnp`
-
 ```yaml
 SnippetType: js
-SnippetFileName: log
+SnippetName: log
 ```
 
 ### Details
 
-Open file `.csnp/js/log.csnp` and edit the default code snippets.
+Open the file `.csnp/js/log.csnp` and edit the default code snippets as follows:
 
 ```csnp
 ---
 name: Log
 prefix: '-log'
-description: my snippet description
+description: log something
 ---
+
 code snippets
 ```
 
-The line `code snippets` is a default code snippets.
+- **name**: The name of the snippet.
+- **prefix**: The trigger text for the snippet in editor.
+- **description**: A brief description of what the snippet does.
+- **code snippets**: The actual code that will be inserted.
 
-Just edit and replace it of code `console.log`.
+Just edit and replace the line `code snippets` of `console.log`.
 
 ```csnp
 ---
@@ -67,16 +73,23 @@ name: Log
 prefix: '-log'
 description: log sth
 ---
+
 console.log($1)
 ```
 
-After using `csnp push`, input the prefix `-log` and press Enter to generate the code.
+After editing, use the command:
+
+```bash
+csnp push
+```
+
+Then in editor you need to type the prefix `-log` and press Enter to generate the code.
 
 <img src='demo/use-in-vscode.gif' alt='-clg' width="100%" />
 
-## .csnp to code-snippets
+## Transforming Snippets
 
-Transform all *.csnp files and store them locally or globally(VSCode).
+You can transform all `.csnp` files and store them locally or globally(in VSCode).
 
 ```bash
 # local (default)
@@ -86,9 +99,9 @@ $ csnp push
 $ csnp push --global
 ```
 
-## code-snippets to .csnp
+## Syncing Snippets
 
-Sync all snippets from local or global(VSCode) and store in .csnp dir.
+To sync all snippets from local or global(VSCode) and store them in `.csnp` directory.
 
 ```bash
 # local (default)
@@ -98,10 +111,10 @@ $ csnp pull
 $ csnp pull --global
 ```
 
-## Link
+## Links
 
-<a href='https://code.visualstudio.com/docs/editor/userdefinedsnippets' target='_blank' >Using Snippet in Visual Studio Code.</a>
+<a href='https://code.visualstudio.com/docs/editor/userdefinedsnippets' target='_blank' >How to use Snippet in Visual Studio Code.</a>
 
 ## License
 
-MIT
+MIT @ Junxio.
