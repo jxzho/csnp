@@ -111,6 +111,13 @@ $ csnp pull
 $ csnp pull --global
 ```
 
+## Usage Information
+
+```bash
+# csnp -h
+csnp --help
+```
+
 ## Links
 
 <a href='https://code.visualstudio.com/docs/editor/userdefinedsnippets' target='_blank' >How to use Snippet in Visual Studio Code.</a>
