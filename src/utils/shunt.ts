@@ -13,12 +13,12 @@ export type Shunt = () => Promise<Continue>
 export const shunt = <Shunt>(async () => {
   const argv = minimist(process.argv.slice(2))
 
-  if (argv.v || argv.version) {
+  if (argv.v || argv.V || argv.version) {
     console.log(`v${pkgVersion}`)
     return false
   }
 
-  if (argv.l || argv.list) {
+  if (argv.l || argv.L || argv.list) {
     List()
     return false
   }
