@@ -17,7 +17,9 @@ type ConfigRcTable = {
 function Table (props: ConfigRcTable) {
   const colNum = props.columns.length
 
-  const widthCol = `${+(1 / 3).toFixed(1) * 100}%`
+  const dataNum = props.data.length
+
+  const widthCol = `${+((1 / colNum) * 100).toFixed(1)}%`
 
   const ceiling = row({
     data: props.columns.map((item, i) => ({
@@ -69,7 +71,7 @@ function Table (props: ConfigRcTable) {
   })
 
 	return (
-		<Box flexDirection="column" alignItems={props.align}>
+		<Box flexDirection="column" alignItems={props.align} paddingX={2}>
       {ceiling}
 
 			{row({
@@ -95,7 +97,7 @@ function Table (props: ConfigRcTable) {
               }
             }))
           }),
-          i !== colNum - 1 && separator()
+          i !== dataNum - 1 && separator()
         ]
       ))}
 
@@ -121,12 +123,14 @@ function row (props: {
               key={Key(item) + index}
               width={item.width}
               {...{
-                marginLeft:(index > 0 && index < props.data.length - 1) ? -1 : 0,
-                marginRight:(index > 0 && index < props.data.length - 1) ? -1 : 0,
+                marginRight: -1,
                 borderStyle: border.draw({
                   left: border.left,
-                  right: border.right
+                  right: border.right,
                 }),
+                /** debug column gap issue */
+                // borderLeftColor: 'blue',
+                // borderRightColor: 'red',
                 borderTop: false,
                 borderBottom: false,
                 ...item.box
