@@ -4,6 +4,7 @@ import { syncCsnpFromVSC } from '../scripts/pull'
 import { Scope } from '../types/enums'
 import { Help } from '../scripts/help'
 import { List } from '../scripts/list'
+import { Preview } from '../scripts/preview'
 import { version as pkgVersion } from '../../package.json'
 
 type Continue = boolean
@@ -25,6 +26,11 @@ export const shunt = <Shunt>(async () => {
 
   if (argv.h || argv.help) {
     Help()
+    return false
+  }
+
+  if (argv.p || argv.P || argv.preview) {
+    Preview()
     return false
   }
 
