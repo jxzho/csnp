@@ -12,26 +12,32 @@ export const Help = () => {
       {
         rcTable({
           align: 'center',
+          titleAlign: 'center',
           columns: [
-            { title: 'Command', dataIndex: 'command', align: 'center', width: 20 },
-            { title: 'Description', dataIndex: 'description', align: 'center', width: 20 },
-            { title: 'Example', dataIndex: 'example', align: 'center', width: 20 },
+            { title: 'Command', dataIndex: 'command', width: 20 },
+            { title: 'Description', dataIndex: 'description', width: 20 },
+            { title: 'Example', dataIndex: 'example', width: 20 },
           ],
           data: [
             {
               command: 'csnp push',
-              description: 'Push your code snippets into vscode',
+              description: 'Commit your code snippets into VSCode.',
               example: 'csnp push'
             },
             {
               command: 'csnp pull',
-              description: 'Pull your code snippets from vscode',
+              description: 'Sync your code snippets from VSCode to edit.',
               example: 'csnp pull'
             },
             {
-              command: 'csnp -l',
-              description: 'List all code snippets',
-              example: 'csnp -l'
+              command: 'csnp --preview',
+              description: 'Preview all VSCode code snippets.',
+              example: 'csnp --preview\ncsnp -p'
+            },
+            {
+              command: 'csnp --list',
+              description: 'List all stored code snippets files.',
+              example: `csnp --list\ncsnp -l`
             }
           ]
         })

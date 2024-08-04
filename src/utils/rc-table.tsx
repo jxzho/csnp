@@ -12,6 +12,7 @@ type ConfigRcTable = {
     align?: PropsBox['justifyContent']
   }[]
   data: (Record<string, string | number>)[]
+  titleAlign?: PropsBox['justifyContent']
 }
 
 function Table (props: ConfigRcTable) {
@@ -79,7 +80,7 @@ function Table (props: ConfigRcTable) {
           value: item.title,
           width: item.width || widthCol,
           textConfig: { bold: true },
-          box: { justifyContent: 'center' }
+          box: { justifyContent: props.titleAlign }
         }))
       })}
 
