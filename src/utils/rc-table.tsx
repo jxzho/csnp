@@ -80,7 +80,9 @@ function Table (props: ConfigRcTable) {
           value: item.title,
           width: item.width || widthCol,
           textConfig: { bold: true },
-          box: { justifyContent: props.titleAlign }
+          box: {
+            justifyContent: props.titleAlign || 'center'
+          }
         }))
       })}
 
