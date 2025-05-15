@@ -14,10 +14,10 @@ const List = () => {
   return render(
     <Box flexDirection='column' marginY={1}>
       {
-        list.map(snippet => {
+        list.map((snippet, i) => {
           const snippetType = path.parse(snippet).name
           return (
-            <Box>
+            <Box key={`snippet-${i}`}>
               <Text bold color="#7AC9C0">{snippetType} ➔ </Text>
               <Text key={snippet}>{snippet}</Text>
             </Box>
