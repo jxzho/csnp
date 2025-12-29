@@ -1,23 +1,22 @@
 import fs from 'node:fs'
 import { resolve } from 'node:path'
-import prompts from 'prompts'
-import { cyan } from 'kolorist'
+import { intro, outro, text, isCancel, cancel } from '@clack/prompts'
+import pc from 'picocolors'
 import { Scope } from '../types/enums'
 import { currentOS } from '../utils/target-path'
 import { createCsnpLocal } from '../utils/create-csnp'
 import { Log } from '../utils/log'
 import { getSnippetFromVSC } from '../utils/snippet-from-vsc'
-import { onPromptCancel } from '../utils/event-handler'
 import { shunt } from '../utils/shunt'
 
-const checkFileCsnpLocal = (path: string) => {
+export const checkFileCsnpLocal = (path: string) => {
   if (fs.existsSync(path))
     return `\`${path}\` already exists, pls re-input filename`
   else 
-    return true
+    return undefined
 }
 
-const exec = async () => {
+export const exec = async () => {
   try {
     if (!await shunt())
       return
@@ -27,63 +26,64 @@ const exec = async () => {
     if (!pathSnp)
       return
 
-    const { type: snippetType } = await prompts(
-      {
-        type: 'text',
-        name: 'type',
-        message: 'Input snippet type',
-        initial: 'exp: sevlte, react, vue',
-        validate: type => !type
-          ? `please input type`
-          : true
-      },
-      {
-        onCancel: onPromptCancel
-      }
-    )
+    intro(pc.inverse(' CSNP '))
 
-    const res = await prompts(
-      [
-        {
-          type: 'text',
-          name: 'name',
-          message: 'Name for snippet',
-          initial: 'exp: Log, Print, Console',
-          validate: (name) => {
-            return !name
-              ? 'please input name!'
-              : true
-          }
-        },
-        {
-          type: 'text',
-          name: 'prefix',
-          message: 'Prefix for snippet',
-          initial: 'exp: -log',
-          validate: (prefix) => {
-            return !prefix
-              ? 'please input prefix!'
-              : true
-          }
-        },
-        {
-          type: 'text',
-          name: 'filename',
-          message: 'Input snippet file name',
-          initial: 'exp-snippets, will get `exp-snippets.csnp`', 
-          validate: (filename) => {
-            const _path = resolve(`.vscode/.csnp/${snippetType}/${filename}.csnp`)
-            return checkFileCsnpLocal(_path)
-          }
-        }
-      ],
-      {
-        onCancel: onPromptCancel 
-      }
-    )
+    const snippetType = await text({
+      message: 'Input snippet type',
+      placeholder: 'exp: sevlte, react, vue',
+      validate: value => !value ? `please input type` : undefined
+    })
 
-    const csnpPath = resolve(`.vscode/.csnp/${snippetType}/${res.filename}.csnp`)
-    const { snippetMap } = getSnippetFromVSC(snippetType, Scope.LOCAL)
+    if (isCancel(snippetType)) {
+      cancel('Operation cancelled.')
+      process.exit(0)
+    }
+
+    const name = await text({
+      message: 'Name for snippet',
+      placeholder: 'exp: Log, Print, Console',
+      validate: value => !value ? 'please input name!' : undefined
+    })
+
+    if (isCancel(name)) {
+      cancel('Operation cancelled.')
+      process.exit(0)
+    }
+
+    const prefix = await text({
+      message: 'Prefix for snippet',
+      placeholder: 'exp: -log',
+      validate: value => !value ? 'please input prefix!' : undefined
+    })
+
+    if (isCancel(prefix)) {
+      cancel('Operation cancelled.')
+      process.exit(0)
+    }
+
+    const filename = await text({
+      message: 'Input snippet file name',
+      placeholder: 'exp-snippets, will get `exp-snippets.csnp`',
+      validate: (value) => {
+        const _path = resolve(`.vscode/.csnp/${snippetType}/${value}.csnp`)
+        return checkFileCsnpLocal(_path)
+      }
+    })
+
+    if (isCancel(filename)) {
+      cancel('Operation cancelled.')
+      process.exit(0)
+    }
+    
+    const res = {
+      type: snippetType as string,
+      name: name as string,
+      prefix: prefix as string,
+      filename: filename as string
+    }
+
+    const csnpPath = resolve(`.vscode/.csnp/${res.type}/${res.filename}.csnp`)
+    const { snippetMap } = getSnippetFromVSC(res.type, Scope.LOCAL)
     const snippetExist = snippetMap.has(res.name) && snippetMap.get(res.name)
     
     const snippetBody = snippetExist
@@ -105,10 +105,12 @@ const exec = async () => {
     else
       Log.error('\n' + message + '\n')
     
+    outro(`You're all set!`)
   }
   catch (error) {
     Log.error(error)
-    throw Error(String(error))
+    cancel(`Error: ${error}`)
+    process.exit(1)
   }
 }
 
@@ -118,11 +120,13 @@ console.log(`
 
   to use command 👇🏼
 
-  ${cyan(`code ${pathLocal}`)}
+  ${pc.cyan(`code ${pathLocal}`)}
 
-  ${cyan(`csnp push`)}
+  ${pc.cyan(`csnp push`)}
 
   ✨ to generate your snippets! ❤️
 `)
 
-exec()
+if (!process.env.VITEST) {
+  exec()
+}

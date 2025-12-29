@@ -2,6 +2,7 @@ import fs from 'node:fs'
 import path from 'node:path'
 import JSON from 'comment-json'
 import matter from 'gray-matter'
+import pc from 'picocolors'
 
 import { Log } from '../utils/log'
 import { getSnippetFromVSC } from './snippet-from-vsc'
@@ -72,9 +73,9 @@ export const putCsnpIntoVSC = async (scope: Scope) => {
         throw (`push ${type} snippets error 💔`)
       })
     })
-    Log.success(`csnp push ${scope} done ✨, [${types}]`)
+    Log.success(`\n Wow! Push done ✨ ${pc.cyan(`[${types}] [${scope}]`)} \n`)
   }
   catch (error) {
-    Log.error('[csnp-to-vsc execute error]', error)
+    Log.error('\n [csnp-to-vsc execute error] \n', error)
   }
 }

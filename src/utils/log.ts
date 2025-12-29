@@ -1,13 +1,13 @@
-import { lightYellow, lightGreen, lightRed } from 'kolorist'
+import pc from 'picocolors'
 
 export const Log = {
   info: (...args: any[]) => {
-    return console.log.apply(null, args.map(lightYellow))
+    return console.log.apply(null, args.map(pc.yellow))
   },
   success: (...args: any[]) => {
-    return console.log.apply(null, args.map(lightGreen))
+    return console.log.apply(null, args.map(pc.green))
   },
   error: (...args: any[]) => {
-    return console.log.apply(null, args.map(lightRed))
+    return console.log.apply(null, args.map(pc.red))
   }
 }

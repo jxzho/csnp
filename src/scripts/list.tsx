@@ -2,12 +2,13 @@ import { Box, render, Text } from 'ink'
 import path from 'node:path'
 import { getSnippetVSC } from '../utils/vsc-snippets'
 import { Log } from '../utils/log'
+import { Scope } from '../types/enums'
 
-const List = () => {
-  const list = getSnippetVSC()
+const List = (scope: Scope = Scope.LOCAL) => {
+  const list = getSnippetVSC(scope)
 
   if (!list.length) {
-    Log.info('No code snippets found.')
+    Log.info(`No ${scope} code snippets found.`)
     return false
   }
 

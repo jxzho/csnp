@@ -1,8 +1,8 @@
-import { describe, expect, test } from '@jest/globals'
+import { describe, expect, test } from 'vitest'
 import fs from 'node:fs'
 import path from 'node:path'
-import { createCsnpLocal } from '../src/utils/create-csnp'
-import { Log } from '../src/utils/log'
+import { createCsnpLocal } from '../../src/utils/create-csnp'
+import { Log } from '../../src/utils/log'
 
 describe('create local csnp by', () => {
   const csnpWherePutInto = path.resolve('test', 'csnp/1.csnp')

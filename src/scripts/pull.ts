@@ -1,5 +1,5 @@
 import path from 'node:path'
-import { cyan } from 'kolorist'
+import pc from 'picocolors'
 import { getSnippetFromVSC } from '../utils/snippet-from-vsc'
 import { createCsnpLocal } from '../utils/create-csnp'
 import { Log } from '../utils/log'
@@ -13,10 +13,10 @@ export const getSnippetBody = (body = []) => {
     return body
 }
 
-export const syncCsnpFromVSC = (scope: Scope) => {
+export const syncCsnpFromVSC = (scopeValue: Scope) => {
   getSnippetVSC().forEach(snippet => {
     const snippetType = path.parse(snippet).name
-    const { snippetMap } = getSnippetFromVSC(snippetType, scope)
+    const { snippetMap } = getSnippetFromVSC(snippetType, scopeValue)
 
     if (snippetMap.size) {
       snippetMap.forEach(async (snp, snpName) => {
@@ -44,7 +44,7 @@ export const syncCsnpFromVSC = (scope: Scope) => {
             },
             snippetBody
           )
-          Log.success(`\n Yay! Sync ${prefix} done ✨ ${cyan(csnpLocalPath)} \n`)
+          Log.success(`\n Yay! Sync done ✨ ${pc.cyan(csnpLocalPath)} [${scopeValue}] \n`)
         }
         catch (error) {
           Log.error(`\n Ouch: Sync ${prefix}[${snippetType}] failed, ${error} \n`)

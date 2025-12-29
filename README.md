@@ -96,7 +96,7 @@ You can transform all `.csnp` files and store them locally or globally(in VSCode
 $ csnp push
 
 # global (VSCode)
-$ csnp push --global
+$ csnp push -G
 ```
 
 ## Syncing Snippets
@@ -108,14 +108,23 @@ To sync all snippets from local or global(VSCode) and store them in `.csnp` dire
 $ csnp pull
 
 # global (VSCode)
-$ csnp pull --global
+$ csnp pull -G
 ```
 
 ## Usage Information
 
 ```bash
-# csnp -h
-csnp --help
+# help
+csnp -H
+
+# version
+csnp -V
+
+# preview
+csnp -P
+
+# list
+csnp -L
 ```
 
 ## Links
