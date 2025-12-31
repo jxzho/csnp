@@ -6,131 +6,167 @@
 
 <h1 align=center>csnp</h1>
 
-<p align=center>A cli-tool for generating VSCode code snippets.</p>
+<p align=center>A CLI tool for managing VSCode code snippets elegantly.</p>
 
 <p align=center>
-  <img alt="npm" src="https://img.shields.io/npm/v/csnp?logo=Visual%20Studio%20Code&logoColor=%23007ACC&labelColor=%23fff&color=F83C00">
+  <a href="https://www.npmjs.com/package/csnp">
+    <img alt="npm" src="https://img.shields.io/npm/v/csnp?logo=Visual%20Studio%20Code&logoColor=%23007ACC&labelColor=%23fff&color=F83C00">
+  </a>
 </p>
 
-<img alt="npm" src="./demo/demo.gif" width=100% alt=demo>
+<p align="center">
+  <img alt="demo" src="./demo/demo.gif" width="100%">
+</p>
 
-## Install
-```bash
-pnpm i -g csnp # recommend
+## Introduction
 
-npm i -g csnp
+**csnp** (Connect Snippets) helps you manage VSCode snippets using simple `.csnp` files. It bridges the gap between your snippet definitions and VSCode's configuration, allowing you to edit snippets in a clean, file-based format and sync them automatically.
 
-yarn i -g csnp
-
-bun i -g csnp
-```
-
-## `csnp`
-
-Using interactive prompts to generate `.csnp` files for managing vscode code snippets.
-
-<img src='demo/start.png' alt='csnp' width="100%" />
-
-### Rule csnp Path
-
-The expected path for your snippets is:
-
-`.csnp/{SnippetType}/{SnippetName}.csnp`
-
-For example:
-
-`.csnp/js/log.csnp`
-
-```yaml
-SnippetType: js
-SnippetName: log
-```
-
-### Details
-
-Open the file `.csnp/js/log.csnp` and edit the default code snippets as follows:
-
-```csnp
----
-name: Log
-prefix: '-log'
-description: log something
----
-
-code snippets
-```
-
-- **name**: The name of the snippet.
-- **prefix**: The trigger text for the snippet in editor.
-- **description**: A brief description of what the snippet does.
-- **code snippets**: The actual code that will be inserted.
-
-Just edit and replace the line `code snippets` of `console.log`.
-
-```csnp
----
-name: Log
-prefix: '-log'
-description: log sth
----
-
-console.log($1)
-```
-
-After editing, use the command:
+## Installation
 
 ```bash
+# via pnpm (recommended)
+pnpm add -g csnp
+
+# via npm
+npm install -g csnp
+
+# via yarn
+yarn global add csnp
+
+# via bun
+bun add -g csnp
+```
+
+## Quick Start
+
+1.  **Create a snippet**:
+    Simply run `csnp` to start the interactive guide.
+
+    ```bash
+    csnp
+    ```
+    <img src='demo/start.png' alt='csnp interactive' width="100%" />
+
+2.  **Edit your snippet**:
+    The command above will generate a `.csnp` file (e.g., `.csnp/js/log.csnp`). Open it and edit the content:
+
+    ```csnp
+    ---
+    name: Log
+    prefix: '-log'
+    description: log something
+    ---
+
+    console.log($1)
+    ```
+
+3.  **Push to VSCode**:
+    Apply your changes to VSCode.
+
+    ```bash
+    csnp push
+    ```
+
+4.  **Use it**:
+    Open a JavaScript file in VSCode, type `-log`, and press Enter!
+
+    <img src='demo/use-in-vscode.gif' alt='usage demo' width="100%" />
+
+## Commands
+
+### `push`
+Commit your code snippets into VSCode.
+
+```bash
+# Push to Local scope (.vscode/ folder in current project)
 csnp push
+
+# Push to Global scope (VSCode User Snippets)
+csnp push -G
 ```
 
-Then in editor you need to type the prefix `-log` and press Enter to generate the code.
-
-<img src='demo/use-in-vscode.gif' alt='-clg' width="100%" />
-
-## Transforming Snippets
-
-You can transform all `.csnp` files and store them locally or globally(in VSCode).
+### `pull`
+Sync snippets from VSCode configuration back to your `.csnp` files. Useful for editing existing snippets.
 
 ```bash
-# local (default)
-$ csnp push
+# Pull from Local scope
+csnp pull
 
-# global (VSCode)
-$ csnp push -G
+# Pull from Global scope
+csnp pull -G
 ```
 
-## Syncing Snippets
-
-To sync all snippets from local or global(VSCode) and store them in `.csnp` directory.
+### `list` / `ls`
+List all stored code snippets files.
 
 ```bash
-# local (default)
-$ csnp pull
-
-# global (VSCode)
-$ csnp pull -G
+csnp ls
 ```
 
-## Usage Information
+### `preview` / `pv`
+Preview the parsed content of your snippets in the terminal.
 
 ```bash
-# help
+csnp pv
+```
+
+### Help & Version
+
+```bash
+# Display help message
 csnp -H
 
-# version
+# Display version number
 csnp -V
-
-# preview
-csnp -P
-
-# list
-csnp -L
 ```
+
+## File Structure
+
+The standard path for a snippet file is:
+`.csnp/{SnippetType}/{SnippetName}.csnp`
+
+```text
+.vscode/                   # VSCode configuration directory
+└── .csnp/                 # CSNP storage directory
+    ├── js/                # [SnippetType] Language ID (e.g. javascript)
+    │   ├── log.csnp       # [SnippetName] Snippet definition file
+    │   └── util.csnp
+    ├── ts/
+    │   └── interface.csnp
+    └── vue/
+        └── component.csnp
+```
+
+*   **SnippetType**: The language ID (e.g., `js`, `ts`, `vue`, `react`, `python`).
+*   **SnippetName**: The filename for your snippet.
+
+**Example**: `.csnp/js/log.csnp`
+
+Inside the file, use YAML frontmatter for metadata and the body for the code:
+
+```markdown
+---
+name: Log
+prefix: '-log'
+description: A console log snippet
+scope: javascript,typescript
+---
+
+console.log('Hello CSNP!')
+```
+
+## Scope
+
+CSNP supports two scopes for storing snippets:
+
+*   **Local (Default)**: Stored in `.vscode/` of your current project. Best for project-specific snippets.
+*   **Global (`-G`)**: Stored in VSCode's user data directory. Best for general-purpose snippets available in all projects.
 
 ## Links
 
-<a href='https://code.visualstudio.com/docs/editor/userdefinedsnippets' target='_blank' >How to use Snippet in Visual Studio Code.</a>
+*   [VSCode Snippets Documentation](https://code.visualstudio.com/docs/editor/userdefinedsnippets)
 
 ## License
 
-MIT @ Junxio.
+MIT © Junxio
