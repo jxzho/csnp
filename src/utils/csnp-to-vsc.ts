@@ -13,10 +13,17 @@ import { Scope } from '../types/enums'
 const DIR_CSNP = '.vscode/.csnp'
 
 const csnpTypes = () => {
-  return fs.readdirSync(
-    path.resolve(DIR_CSNP),
-    'utf-8'
-  )
+  try {
+    return fs.readdirSync(
+      path.resolve(DIR_CSNP),
+      'utf-8'
+    )
+  } catch (error: any) {
+    if (error.code === 'ENOENT') {
+      return null
+    }
+    throw error
+  }
 }
 
 const isDir = (val: string) => fs.statSync(val).isDirectory()
@@ -24,6 +31,11 @@ const isDir = (val: string) => fs.statSync(val).isDirectory()
 export const putCsnpIntoVSC = async (scope: Scope) => {
   try {
     const types = csnpTypes()
+    if (!types) {
+      Log.error(`\nOpus! Push failed, no ${scope} csnp files found.\n`)
+      return
+    }
+
     types.forEach((type) => { 
       const typePath = path.resolve(DIR_CSNP, type)
 

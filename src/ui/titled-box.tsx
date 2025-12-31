@@ -10,11 +10,7 @@ export const TitledBox = ({
 } & PropsBox) => {
   return (
     <Box>
-      <Box
-        {...propsBox}
-      >
-        {children}
-      </Box>
+      <Box {...propsBox}>{children}</Box>
       <Box position="absolute" marginLeft={4}>
         <Text color='#FF8373'> Code Snippet</Text>
         <Text dimColor> / {title} </Text>

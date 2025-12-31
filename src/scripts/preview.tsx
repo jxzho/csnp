@@ -6,14 +6,17 @@ import { getSnippetVSC } from '../utils/vsc-snippets'
 import { getSnippetFromVSC } from '../utils/snippet-from-vsc'
 import { Scope } from '../types/enums';
 import { getSnippetBody } from './pull'
+import { Log } from '../utils/log'
 import { TitledBox } from '../ui/titled-box'
 
 const prompt = async (scope: Scope) => {
   const list = getSnippetVSC(scope)
 
-  if (list.length === 1) {
+  if (!list.length)
+    return null
+
+  if (list.length === 1)
     return list[0]
-  }
 
   const value = await select({
     message: 'Pick your code type',
@@ -33,8 +36,14 @@ const prompt = async (scope: Scope) => {
 
 const Preview = async (scope: Scope = Scope.LOCAL) => {
   const snippet = await prompt(scope)
+  if (!snippet)
+    return Log.error(`\nNo ${scope} code snippets found.\n`)
+
   const snippetType = path.parse(snippet as string).name
-  const { snippetParsed } = getSnippetFromVSC(snippetType, scope)
+  const { snippetParsed, snippetMap } = getSnippetFromVSC(snippetType, scope)
+  if (!snippetMap.size)
+    return Log.error(`\nNo [${snippet}] code snippets found.\n`)
+
   const SnippetCard = ({ name, data }: { name: string, data: any }) => (
     <TitledBox
       title={name}
@@ -49,6 +58,11 @@ const Preview = async (scope: Scope = Scope.LOCAL) => {
         <SyntaxHighlight code={getSnippetBody(data.body)} />
       </Box>
       <Box flexDirection='column' alignItems='center'>
+        <Box flexDirection='row'>
+          <Text dimColor>Prefix: </Text>
+          <Text color='#A6D6FE'>{data.prefix || '<no prefix>'}</Text>
+        </Box>
+
         <Box flexDirection='row'>
           <Text dimColor>Description: </Text>
           <Text dimColor>{data.description || '<no description>'}</Text>

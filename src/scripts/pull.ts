@@ -14,7 +14,12 @@ export const getSnippetBody = (body = []) => {
 }
 
 export const syncCsnpFromVSC = (scopeValue: Scope) => {
-  getSnippetVSC().forEach(snippet => {
+  const snippets = getSnippetVSC()
+  if (!snippets.length) {
+    Log.error(`\nOpus! Pull failed, no ${scopeValue} csnp files found.\n`)
+    return
+  }
+  snippets.forEach(snippet => {
     const snippetType = path.parse(snippet).name
     const { snippetMap } = getSnippetFromVSC(snippetType, scopeValue)
 

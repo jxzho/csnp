@@ -8,7 +8,7 @@ const List = (scope: Scope = Scope.LOCAL) => {
   const list = getSnippetVSC(scope)
 
   if (!list.length) {
-    Log.info(`No ${scope} code snippets found.`)
+    Log.error(`\nNo ${scope} code snippets found.\n`)
     return false
   }
 

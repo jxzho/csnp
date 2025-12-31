@@ -17,7 +17,8 @@ vi.mock('../../src/utils/vsc-snippets', () => ({
 
 vi.mock('../../src/utils/log', () => ({
   Log: {
-    info: vi.fn()
+    info: vi.fn(),
+    error: vi.fn()
   }
 }))
 
@@ -26,10 +27,10 @@ describe('List script', () => {
     vi.clearAllMocks()
   })
 
-  it('should log info if no snippets found', () => {
+  it('should log error if no snippets found', () => {
     vi.mocked(getSnippetVSC).mockReturnValue([])
     List()
-    expect(Log.info).toHaveBeenCalledWith('No local code snippets found.')
+    expect(Log.error).toHaveBeenCalledWith('\nNo local code snippets found.\n')
     expect(render).not.toHaveBeenCalled()
   })
 

@@ -44,4 +44,13 @@ describe('Pull script', () => {
     expect(createCsnpLocal).toHaveBeenCalled()
     expect(Log.success).toHaveBeenCalled()
   })
+
+  it('should log error if no snippets found to sync', async () => {
+    vi.mocked(getSnippetVSC).mockReturnValue([])
+
+    syncCsnpFromVSC(Scope.LOCAL)
+
+    expect(Log.error).toHaveBeenCalledWith('\nOpus! Pull failed, no local csnp files found.\n')
+    expect(createCsnpLocal).not.toHaveBeenCalled()
+  })
 })
