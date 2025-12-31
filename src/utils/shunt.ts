@@ -47,6 +47,8 @@ export const shunt = async (): Promise<boolean> => {
       { name: 'pull [option]', desc: 'Sync your code snippets from VSCode to edit. (Default: Local)' },
       { name: 'ls, list [option]', desc: 'List all stored code snippets files.' },
       { name: 'pv, preview [option]', desc: 'Preview all VSCode code snippets.' },
+      { name: '-L, --list', desc: `${pc.yellow('(Deprecated)')} List all stored code snippets files.` },
+      { name: '-P, --preview', desc: `${pc.yellow('(Deprecated)')} Preview all VSCode code snippets.` },
       { name: '-H, --help', desc: 'Display this message' },
       { name: '-V, --version', desc: 'Display version number' }
     ]
@@ -112,6 +114,18 @@ export const shunt = async (): Promise<boolean> => {
   }
 
   if (!isInteractive) {
+    return false
+  }
+
+  if (parsed.options.L || parsed.options.list) {
+    console.warn(pc.yellow('\n  Deprecation Warning: -L / --list option is deprecated.\n  Please use "csnp list" or "csnp ls" command instead.\n'))
+    List(getScope(parsed.options))
+    return false
+  }
+
+  if (parsed.options.P || parsed.options.preview) {
+    console.warn(pc.yellow('\n  Deprecation Warning: -P / --preview option is deprecated.\n  Please use "csnp preview" or "csnp pv" command instead.\n'))
+    Preview(getScope(parsed.options))
     return false
   }
   
